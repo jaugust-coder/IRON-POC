@@ -7,13 +7,14 @@ import InsightSection from './insight-section';
 import WatchSignals from './watch-signals';
 import FollowOnQuestions from './follow-on-questions';
 import EngineTables from './engine-tables';
+import ChatInputBar from './chat-input-bar';
 import { SearchIcon } from '@purplelab/icons-ui/SearchIcon';
 import { TargetIcon } from '@purplelab/icons-ui/TargetIcon';
 import { CalendarIcon } from '@purplelab/icons-ui/CalendarIcon';
 
 export default function IronQ1Page() {
   return (
-    <div className="mx-auto max-w-[960px] space-y-6 px-6 py-8">
+    <div className="mx-auto max-w-[960px] space-y-6 px-6 pb-28 pt-8">
       {/* Page header */}
       <div className="space-y-1">
         <div className="flex items-center gap-2">
@@ -74,6 +75,9 @@ export default function IronQ1Page() {
         {/* Follow-on questions */}
         <FollowOnQuestions />
       </IronChatMessage>
+
+      {/* Sticky chat input bar */}
+      <ChatInputBar />
     </div>
   );
 }

@@ -52,9 +52,8 @@ export const Q1_WATCH_SIGNALS = [
 ];
 
 export const Q1_FOLLOW_ON_QUESTIONS = [
-  { id: 'Q2', text: 'Which therapy steps have the highest unmet need?' },
-  { id: 'Q3', text: 'What is the eosinophil distribution across the COPD universe?' },
-  { id: 'Q6', text: 'How does Dupixent switching compare to competitor biologics?' },
+  { id: 'Q2', text: 'How has treatment adoption grown year over year?' },
+  { id: 'Q3', text: 'How does treatment penetration compare vs. the eligible patient pool?' },
 ];
 
 export const Q1_ENGINE_TABLES = {

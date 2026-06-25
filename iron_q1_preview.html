@@ -89,7 +89,7 @@
     </div>
 
     <!-- ==================== RESULTS SECTION ==================== -->
-    <div id="results-section" class="hidden space-y-6 fade-in">
+    <div id="results-section" class="hidden space-y-6 pb-28 fade-in">
 
       <!-- User question bubble -->
       <div class="flex justify-end">
@@ -234,19 +234,14 @@
           <div class="space-y-3">
             <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
             <div class="space-y-2">
-              <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+              <button onclick="populateChatInput('How has treatment adoption grown year over year?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
                 <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q2</span>
-                <span class="flex-1 text-[15px] text-neutral-800">Which therapy steps have the highest unmet need?</span>
+                <span class="flex-1 text-[15px] text-neutral-800">How has treatment adoption grown year over year?</span>
                 <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
-              <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+              <button onclick="populateChatInput('How does treatment penetration compare vs. the eligible patient pool?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
                 <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q3</span>
-                <span class="flex-1 text-[15px] text-neutral-800">What is the eosinophil distribution across the COPD universe?</span>
-                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
-              <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
-                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q6</span>
-                <span class="flex-1 text-[15px] text-neutral-800">How does Dupixent switching compare to competitor biologics?</span>
+                <span class="flex-1 text-[15px] text-neutral-800">How does treatment penetration compare vs. the eligible patient pool?</span>
                 <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
@@ -258,6 +253,31 @@
     </div>
 
   </main>
+
+  <!-- ==================== STICKY CHAT INPUT BAR ==================== -->
+  <div id="chat-input-bar" class="fixed bottom-0 left-0 right-0 z-20 hidden border-t border-neutral-200 bg-white/95 backdrop-blur-sm shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
+    <div class="mx-auto flex max-w-[960px] items-center gap-3 px-6 py-4">
+      <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-100">
+        <svg class="h-5 w-5 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
+      </div>
+      <div class="relative flex-1">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Ask a follow-up question..."
+          class="w-full rounded-xl border border-neutral-300 bg-neutral-50 px-4 py-2.5 pr-12 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-100"
+          onkeydown="if(event.key==='Enter' && this.value.trim()) handleChatSend()"
+        />
+        <button
+          onclick="handleChatSend()"
+          class="absolute right-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-white transition hover:bg-brand-600 disabled:bg-neutral-200 disabled:text-neutral-400"
+          id="chat-send-btn"
+        >
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
 <script>
 // ======================== WIZARD STATE ========================
@@ -330,10 +350,12 @@ function render() {
   const wizardEl = document.getElementById('wizard-section');
   const procEl = document.getElementById('processing-section');
   const resultsEl = document.getElementById('results-section');
+  const chatBar = document.getElementById('chat-input-bar');
 
   wizardEl.classList.add('hidden');
   procEl.classList.add('hidden');
   resultsEl.classList.add('hidden');
+  chatBar.classList.add('hidden');
 
   if (state.step === 'processing') {
     procEl.classList.remove('hidden');
@@ -342,6 +364,7 @@ function render() {
   }
   if (state.step === 'results') {
     resultsEl.classList.remove('hidden');
+    chatBar.classList.remove('hidden');
     return;
   }
 
@@ -574,6 +597,21 @@ function startProcessing() {
     pctEl.textContent = '100%';
     setTimeout(() => { state.step = 'results'; render(); }, 600);
   }, totalDur);
+}
+
+// ======================== CHAT INPUT HELPERS ========================
+function populateChatInput(text) {
+  var input = document.getElementById('chat-input');
+  if (input) {
+    input.value = text;
+    input.focus();
+  }
+}
+
+function handleChatSend() {
+  var input = document.getElementById('chat-input');
+  if (!input || !input.value.trim()) return;
+  input.value = '';
 }
 
 // ======================== RESULTS HELPERS ========================
