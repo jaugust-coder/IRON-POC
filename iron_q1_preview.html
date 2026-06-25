@@ -234,7 +234,7 @@
           <div class="space-y-3">
             <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
             <div class="space-y-2">
-              <button onclick="populateChatInput('How has treatment adoption grown year over year?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+              <button onclick="showQ2Results()" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
                 <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q2</span>
                 <span class="flex-1 text-[15px] text-neutral-800">How has treatment adoption grown year over year?</span>
                 <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -248,6 +248,243 @@
           </div>
 
           <p class="text-xs text-neutral-400">Generated just now · IRON Q1 POC · purplelab-dev</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== Q2 RESULTS SECTION ==================== -->
+    <div id="q2-results-section" class="hidden space-y-6 fade-in">
+
+      <!-- Q2 User question bubble -->
+      <div class="flex justify-end">
+        <div class="max-w-[70%] rounded-2xl rounded-br-md bg-brand-500 px-5 py-3 text-[15px] text-white shadow-sm">
+          How has treatment adoption grown year over year?
+        </div>
+      </div>
+
+      <!-- Q2 Context tags -->
+      <div class="flex justify-end">
+        <div class="flex flex-wrap gap-2">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+            <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Dupixent
+          </span>
+          <span class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">COPD</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+            <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            2022 – 2025 (Full Calendar Years)
+          </span>
+        </div>
+      </div>
+
+      <!-- Q2 AI Response -->
+      <div class="flex gap-3">
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-100">
+          <svg class="h-5 w-5 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
+        </div>
+        <div class="min-w-0 flex-1 space-y-5">
+
+          <!-- Status badge -->
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-3 py-1 text-xs font-medium text-success-700">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              Complete
+            </span>
+            <p class="text-xs text-neutral-500">Queried 2 tables · 11 rows · purplelab-dev.TMP_JOCE</p>
+          </div>
+
+          <!-- Q2 KPI Banner -->
+          <div class="grid grid-cols-5 gap-3">
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Treated 2022 (Baseline)</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">34,906</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">First full year tracked</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Treated 2025</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">72,895</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">Most recent full year</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Total Growth</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">+109%</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">2022 → 2025</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">CAGR</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">~27.8%</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">Compound annual growth rate</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Peak Year Adds</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">37,221</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">2025 — highest single-year increment</p>
+            </div>
+          </div>
+
+          <!-- Q2 Trend Table -->
+          <div class="space-y-3">
+            <h3 class="text-base font-semibold text-neutral-900">Year-over-Year Trend</h3>
+            <div class="overflow-x-auto rounded-lg border border-neutral-200">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-neutral-200 bg-neutral-50 text-left text-neutral-600">
+                    <th class="px-4 py-2.5 font-medium">Year</th>
+                    <th class="px-4 py-2.5 font-medium">COPD Universe</th>
+                    <th class="px-4 py-2.5 text-right font-medium">Treated</th>
+                    <th class="px-4 py-2.5 text-right font-medium">Penetration</th>
+                    <th class="px-4 py-2.5 text-right font-medium">YoY Growth</th>
+                    <th class="px-4 py-2.5 font-medium">Phase</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-neutral-100 text-neutral-800">
+                    <td class="px-4 py-2.5 font-medium">2022</td>
+                    <td class="px-4 py-2.5">9.94M</td>
+                    <td class="px-4 py-2.5 text-right mono">34,906</td>
+                    <td class="px-4 py-2.5 text-right mono">0.35%</td>
+                    <td class="px-4 py-2.5 text-right mono">—</td>
+                    <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-700">Baseline</span></td>
+                  </tr>
+                  <tr class="border-b border-neutral-100 text-neutral-800">
+                    <td class="px-4 py-2.5 font-medium">2023</td>
+                    <td class="px-4 py-2.5">10.14M</td>
+                    <td class="px-4 py-2.5 text-right mono">48,935</td>
+                    <td class="px-4 py-2.5 text-right mono">0.48%</td>
+                    <td class="px-4 py-2.5 text-right mono">+40.2%</td>
+                    <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-success-100 px-2 py-0.5 text-xs font-medium text-success-700">Rapid Uptake</span></td>
+                  </tr>
+                  <tr class="border-b border-neutral-100 text-neutral-800">
+                    <td class="px-4 py-2.5 font-medium">2024</td>
+                    <td class="px-4 py-2.5">9.40M</td>
+                    <td class="px-4 py-2.5 text-right mono">57,725</td>
+                    <td class="px-4 py-2.5 text-right mono">0.61%</td>
+                    <td class="px-4 py-2.5 text-right mono">+18.0%</td>
+                    <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-warning-100 px-2 py-0.5 text-xs font-medium text-warning-700">Moderation</span></td>
+                  </tr>
+                  <tr class="border-b border-neutral-100 text-neutral-800">
+                    <td class="px-4 py-2.5 font-medium">2025</td>
+                    <td class="px-4 py-2.5">8.75M</td>
+                    <td class="px-4 py-2.5 text-right mono">72,895</td>
+                    <td class="px-4 py-2.5 text-right mono">0.83%</td>
+                    <td class="px-4 py-2.5 text-right mono">+26.3%</td>
+                    <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-warning-100 px-2 py-0.5 text-xs font-medium text-warning-700">Re-acceleration</span></td>
+                  </tr>
+                  <tr class="bg-neutral-50 text-neutral-500">
+                    <td class="px-4 py-2.5 font-medium">2026*</td>
+                    <td class="px-4 py-2.5">—</td>
+                    <td class="px-4 py-2.5 text-right mono">48,587</td>
+                    <td class="px-4 py-2.5 text-right">—</td>
+                    <td class="px-4 py-2.5 text-right">—</td>
+                    <td class="px-4 py-2.5 text-xs italic">Jan – Apr only</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-[11px] text-neutral-400">* Partial year — excluded from trend; annualized run-rate shown for context only. Annualized run-rate: ~145,761.</p>
+          </div>
+
+          <!-- Q2 Insight Section -->
+          <div class="space-y-4">
+            <h3 class="text-base font-semibold text-neutral-900">Insight</h3>
+            <p class="text-[15px] leading-relaxed text-neutral-700">Dupixent adoption in COPD has grown 109% over four calendar years (2022–2025), representing a compound annual growth rate of approximately 27.8%. From a baseline of 34,906 treated patients in 2022, the brand has more than doubled its footprint to 72,895 patients by the end of 2025. This trajectory confirms Dupixent is in a sustained commercial build phase, not a one-time launch spike.</p>
+            <p class="text-[15px] leading-relaxed text-neutral-700">The year-over-year pattern reveals three distinct phases. In 2023, growth surged +40.2% as initial post-launch momentum and formulary wins drove rapid uptake. Growth moderated to +18.0% in 2024 — a pattern consistent with cross-indication tailwind normalizing as the early-adopter physician cohort was largely penetrated, not a signal of market maturation. Critically, 2025 reversed the deceleration with +26.3% growth and 37,221 new patient adds — the highest single-year increment in the dataset. This re-acceleration is the most commercially significant signal in the data: it indicates the brand is finding new prescriber pools or expanding within existing accounts, and that the 2024 moderation was a temporary plateau rather than a ceiling.</p>
+            <p class="text-[15px] leading-relaxed text-neutral-700">Early 2026 data (Jan–Apr: 48,587 patients) annualizes to approximately 145,761 treated patients, roughly double the 2025 full-year count. While partial-year figures should be interpreted cautiously, the run-rate confirms the re-acceleration trend is sustaining into the current period. With Dupixent's patent cliff at 2031, the brand team has a five-year commercial window to maximize penetration before potential biosimilar entry reshapes the competitive landscape.</p>
+          </div>
+
+          <!-- Q2 Watch Signals -->
+          <div class="space-y-3">
+            <h3 class="text-base font-semibold text-neutral-900">Watch Signals</h3>
+            <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+              <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <div>
+                <p class="text-sm font-semibold text-neutral-900">Re-Acceleration Confirmed (2025)</p>
+                <p class="mt-1 text-sm text-neutral-700">2025 YoY growth (+26.3%) exceeded 2024 (+18.0%), reversing the deceleration trend. This re-acceleration flag signals expanding prescriber adoption or new patient segments entering the treatment funnel. Investigate what drove the inflection — new clinical data, guideline changes, or field-force realignment.</p>
+              </div>
+            </div>
+            <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+              <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <div>
+                <p class="text-sm font-semibold text-neutral-900">Patent Cliff — 2031 Urgency Window</p>
+                <p class="mt-1 text-sm text-neutral-700">With biosimilar entry possible after 2031, the brand team has approximately five full commercial years to maximize penetration. Growth strategy should front-load patient acquisition and build switching costs (data continuity, refill programs) to defend share post-LOE.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 Engine Tables (collapsible) -->
+          <div class="rounded-lg border border-neutral-200 bg-neutral-50">
+            <button onclick="toggleQ2Tables()" class="flex w-full items-center justify-between px-4 py-3 text-left">
+              <div>
+                <p class="text-sm font-semibold text-neutral-700">Engine Query Results</p>
+                <p class="text-[11px] text-neutral-500">2 tables · 11 rows from purplelab-dev.TMP_JOCE</p>
+              </div>
+              <svg id="q2-chevron" class="h-5 w-5 text-neutral-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div id="q2-tables-content" class="hidden border-t border-neutral-200 p-4 space-y-4">
+              <div>
+                <p class="mb-1 text-sm font-semibold text-neutral-800">Adoption Trend — Dupixent in COPD (YoY)</p>
+                <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_TREND_COPD_Dupixent · 5 rows</p>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Year</th><th class="px-3 py-2 font-medium">Universe</th><th class="px-3 py-2 font-medium">Treated</th><th class="px-3 py-2 font-medium">Penetration</th><th class="px-3 py-2 font-medium">YoY Growth</th><th class="px-3 py-2 font-medium">Phase</th></tr></thead>
+                    <tbody class="text-neutral-800">
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">2022</td><td class="px-3 py-2">9,940,000</td><td class="px-3 py-2">34,906</td><td class="px-3 py-2">0.35%</td><td class="px-3 py-2">—</td><td class="px-3 py-2">Baseline</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">2023</td><td class="px-3 py-2">10,140,000</td><td class="px-3 py-2">48,935</td><td class="px-3 py-2">0.48%</td><td class="px-3 py-2">+40.2%</td><td class="px-3 py-2">Rapid Uptake</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">2024</td><td class="px-3 py-2">9,400,000</td><td class="px-3 py-2">57,725</td><td class="px-3 py-2">0.61%</td><td class="px-3 py-2">+18.0%</td><td class="px-3 py-2">Moderation</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">2025</td><td class="px-3 py-2">8,750,000</td><td class="px-3 py-2">72,895</td><td class="px-3 py-2">0.83%</td><td class="px-3 py-2">+26.3%</td><td class="px-3 py-2">Re-acceleration</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">2026*</td><td class="px-3 py-2">—</td><td class="px-3 py-2">48,587</td><td class="px-3 py-2">—</td><td class="px-3 py-2">—</td><td class="px-3 py-2">Partial (Jan–Apr)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <p class="mb-1 text-sm font-semibold text-neutral-800">KPI Output — Growth Metrics</p>
+                <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_KPI_COPD_Dupixent_GROWTH · 6 rows</p>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Metric</th><th class="px-3 py-2 font-medium">Value</th></tr></thead>
+                    <tbody class="text-neutral-800">
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">treated_N_first</td><td class="px-3 py-2">34,906 (2022)</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">treated_N_last</td><td class="px-3 py-2">72,895 (2025)</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">total_growth_pct</td><td class="px-3 py-2">+109%</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">cagr_pct</td><td class="px-3 py-2">~27.8%</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">peak_single_year_adds</td><td class="px-3 py-2">37,221 (2025)</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">patent_cliff_year</td><td class="px-3 py-2">2031</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 Follow-on Questions -->
+          <div class="space-y-3">
+            <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
+            <div class="space-y-2">
+              <button onclick="populateChatInput('How large is the patient universe, and what share is currently treated?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q1</span>
+                <span class="flex-1 text-[15px] text-neutral-800">How large is the patient universe, and what share is currently treated?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button onclick="populateChatInput('How does treatment penetration compare vs. the eligible patient pool?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q3</span>
+                <span class="flex-1 text-[15px] text-neutral-800">How does treatment penetration compare vs. the eligible patient pool?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button onclick="populateChatInput('Which prescriber segments are driving the re-acceleration?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q9</span>
+                <span class="flex-1 text-[15px] text-neutral-800">Which prescriber segments are driving the re-acceleration?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button onclick="populateChatInput('What is the payer mix and prior-auth approval rate trend?')" class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q12</span>
+                <span class="flex-1 text-[15px] text-neutral-800">What is the payer mix and prior-auth approval rate trend?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <p class="text-xs text-neutral-400">Generated just now · IRON Q2 POC · purplelab-dev</p>
         </div>
       </div>
     </div>
@@ -613,13 +850,32 @@ function populateChatInput(text) {
 function handleChatSend() {
   var input = document.getElementById('chat-input');
   if (!input || !input.value.trim()) return;
+  var text = input.value.trim();
   input.value = '';
+  if (text.toLowerCase().indexOf('treatment adoption') !== -1 || text.toLowerCase().indexOf('grown year over year') !== -1) {
+    showQ2Results();
+  }
+}
+
+function showQ2Results() {
+  var q2Section = document.getElementById('q2-results-section');
+  if (q2Section) {
+    q2Section.classList.remove('hidden');
+    q2Section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 // ======================== RESULTS HELPERS ========================
 function toggleTables() {
   const content = document.getElementById('tables-content');
   const chevron = document.getElementById('chevron');
+  content.classList.toggle('hidden');
+  chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
+}
+
+function toggleQ2Tables() {
+  const content = document.getElementById('q2-tables-content');
+  const chevron = document.getElementById('q2-chevron');
   content.classList.toggle('hidden');
   chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }

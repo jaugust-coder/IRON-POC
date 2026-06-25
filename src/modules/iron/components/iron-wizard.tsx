@@ -21,6 +21,7 @@ import { FilledCircleCheckIcon } from '@purplelab/icons-ui/FilledCircleCheckIcon
 import { ChartLineUpIcon } from '@purplelab/icons-ui/ChartLineUpIcon';
 import { ActivityIcon } from '@purplelab/icons-ui/ActivityIcon';
 import IronQ1Page from './iron-q1-page';
+import IronQ2Page from './iron-q2-page';
 
 function StepIndicator({ steps, currentIndex }: { steps: { label: string; key: string }[]; currentIndex: number }) {
   return (
@@ -359,6 +360,7 @@ const WIZARD_STEPS = [
 
 export default function IronWizard() {
   const [step, setStep] = useState<WizardStep>('tool');
+  const [activeQuestion, setActiveQuestion] = useState<'Q1' | 'Q2'>('Q1');
   const [selections, setSelections] = useState<WizardSelections>({
     tool: null,
     ta: null,
@@ -399,6 +401,7 @@ export default function IronWizard() {
   }, []);
 
   if (step === 'results') {
+    if (activeQuestion === 'Q2') return <IronQ2Page />;
     return <IronQ1Page />;
   }
 
