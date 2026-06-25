@@ -110,6 +110,18 @@
                   <span class="text-sm" style="color:#c4b5fd;">Eos Cohort Report</span>
                 </button>
               </div>
+              <!-- Sub-folder: CLL Analysis -->
+              <button onclick="toggleSidebarFolder('cll-folder')" class="sidebar-tree-item flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left">
+                <svg id="cll-folder-chevron" class="h-3.5 w-3.5 transition-transform" style="color:#8b7fc7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                <svg class="h-4 w-4" style="color:#a78bfa;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <span class="text-sm" style="color:#c4b5fd;">CLL Analysis</span>
+              </button>
+              <div id="cll-folder-children" class="ml-4 space-y-0.5" style="display:none">
+                <button class="sidebar-tree-item flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left">
+                  <svg class="h-3.5 w-3.5" style="color:#a78bfa;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
+                  <span class="text-sm" style="color:#c4b5fd;">Jaypirca Market</span>
+                </button>
+              </div>
               <!-- Sub-folder: Asthma -->
               <button class="sidebar-tree-item flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left" style="opacity:0.5;">
                 <svg class="h-3.5 w-3.5" style="color:#8b7fc7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
@@ -214,7 +226,7 @@
             <svg class="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
           </div>
           <div>
-            <h1 class="text-sm font-semibold text-neutral-900">Dupixent COPD Market Landscape</h1>
+            <h1 id="nav-title" class="text-sm font-semibold text-neutral-900">Dupixent COPD Market Landscape</h1>
             <p class="text-[11px] text-neutral-400">IRON · Patient & Market Navigator</p>
           </div>
         </div>
@@ -281,7 +293,7 @@
                     </div>
                     <div>
                       <h2 class="text-lg font-bold text-neutral-900">Running Patient & Market Navigator</h2>
-                      <p class="text-sm text-neutral-500">Analyzing COPD · Dupixent · Full Year 2025</p>
+                      <p id="processing-subtitle" class="text-sm text-neutral-500">Analyzing COPD · Dupixent · Full Year 2025</p>
                     </div>
                   </div>
 
@@ -482,6 +494,195 @@
                     <button onclick="populateChatInput('How does treatment penetration compare vs. the eligible patient pool?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
                       <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q3</span>
                       <span class="flex-1 text-[15px] text-neutral-800">How does treatment penetration compare vs. the eligible patient pool?</span>
+                      <svg class="h-4 w-4 shrink-0" style="color:#7c3aed;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <p class="text-xs text-neutral-400">Generated just now · IRON Q1 POC · purplelab-dev</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== CLL Q1 RESULTS SECTION ==================== -->
+          <div id="cll-results-section" class="hidden space-y-5 fade-in">
+
+            <!-- User question bubble -->
+            <div class="flex justify-end">
+              <div class="max-w-[70%] rounded-2xl rounded-br-md px-5 py-3 text-[15px] text-white shadow-sm" style="background:#7c3aed;">
+                How large is the patient universe, and what share is currently treated?
+              </div>
+            </div>
+
+            <!-- Context tags -->
+            <div class="flex justify-end">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+                  <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  Jaypirca
+                </span>
+                <span class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">CLL</span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+                  <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  Full Year 2025 (Jan 1 – Dec 31)
+                </span>
+              </div>
+            </div>
+
+            <!-- AI Response -->
+            <div class="flex gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full" style="background:#ede9fe;">
+                <svg class="h-5 w-5" style="color:#6d28d9;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
+              </div>
+              <div class="min-w-0 flex-1 space-y-5">
+
+                <!-- Status badge -->
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-3 py-1 text-xs font-medium text-success-700">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Complete
+                  </span>
+                  <p class="text-xs text-neutral-500">Queried 1 table · 8 rows · purplelab-dev.TMP_JOCE</p>
+                </div>
+
+                <!-- KPI Banner (4-step funnel + whitespace) -->
+                <div class="grid grid-cols-5 gap-3">
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">CLL Universe</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">214,823</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">Step 1 · All CLL Dx</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Systemic Therapy</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">54,892</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">Step 2 · 25.6% of universe</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Eligible for 2L+ BTKi</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">10,742</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">Step 3 · 19.6% of Step 2</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">On Jaypirca</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">894</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">Step 4 · 8.3% penetration</p>
+                  </div>
+                  <div class="rounded-lg border p-4 shadow-sm" style="border-color:#EF9F27;background:#FFFBF0;">
+                    <p class="text-xs font-semibold" style="color:#92610A;">Whitespace</p>
+                    <p class="mt-1 text-xl font-bold" style="color:#92610A;">9,848</p>
+                    <p class="mt-0.5 text-[11px]" style="color:#B07A0E;">Eligible patients not on Jaypirca</p>
+                  </div>
+                </div>
+
+                <!-- Dual-count explanation (always shown for CLL) -->
+                <div class="flex gap-3 rounded-lg border p-4" style="border-color:#c7d2fe;background:#eef2ff;">
+                  <svg class="mt-0.5 h-5 w-5 shrink-0" style="color:#4f46e5;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                  <div>
+                    <p class="text-sm font-semibold text-neutral-900">Why two patient counts?</p>
+                    <p class="mt-1 text-sm text-neutral-700">Rx Measurement patients (<strong>31,826</strong>) reflect a broader "ever-treated" CLL population across the full measurement window (May 2023 – Mar 2026). The P&MN Step 4 count (<strong>894</strong>) is a point-in-time snapshot of Jaypirca-treated patients in the confirmed sequential pathway. Both are valid — they answer different questions. The 35.6x ratio is expected given the wider Rx Measurement capture window.</p>
+                  </div>
+                </div>
+
+                <!-- Insight Section -->
+                <div class="space-y-4">
+                  <h3 class="text-base font-semibold text-neutral-900">Insight</h3>
+                  <p class="text-[15px] leading-relaxed text-neutral-700">The CLL patient universe in HealthNexus totals 214,823 patients with at least one CLL diagnosis code in the claims window (Jan 2017 – Jan 2026). Of these, 54,892 (25.6%) have received any systemic therapy, and 10,742 (19.6% of treated) meet the sequential criteria for 2L+ BTK inhibitor eligibility — the addressable market for Jaypirca.</p>
+                  <p class="text-[15px] leading-relaxed text-neutral-700">Jaypirca has captured 894 of these eligible patients, representing an 8.3% penetration rate of the BTKi-eligible pool and just 0.42% of the total CLL universe. With 9,848 eligible patients remaining untreated with Jaypirca, the whitespace opportunity is more than 10x the current treated volume.</p>
+                  <p class="text-[15px] leading-relaxed text-neutral-700">For the brand team, the 4-step sequential funnel reveals clear commercial leverage points. The largest drop-off occurs between universe (214K) and systemic therapy (55K) — many CLL patients are in watch-and-wait. The second critical conversion is from therapy to BTKi-eligible (10.7K), gated by prior-line requirements and BTKi history. Targeting these two transition points with education and diagnostic support can expand the addressable pool.</p>
+                </div>
+
+                <!-- Watch Signals -->
+                <div class="space-y-3">
+                  <h3 class="text-base font-semibold text-neutral-900">Watch Signals</h3>
+                  <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+                    <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    <div>
+                      <p class="text-sm font-semibold text-neutral-900">Large Whitespace, Early Launch Curve</p>
+                      <p class="mt-1 text-sm text-neutral-700">With only 894 patients on Jaypirca vs. 9,848 eligible, penetration is 8.3%. Approved in Jan 2023, the drug is still in early commercial ramp. Monitor quarterly growth rate to assess whether the uptake curve is tracking to plan.</p>
+                    </div>
+                  </div>
+                  <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+                    <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    <div>
+                      <p class="text-sm font-semibold text-neutral-900">Competitive BTKi Landscape</p>
+                      <p class="mt-1 text-sm text-neutral-700">Calquence and Imbruvica hold the majority of the 2L+ BTKi-treated pool. Jaypirca's differentiation as a non-covalent BTKi is its key moat — monitor real-world switching patterns and payer formulary positioning relative to covalent BTKi competitors.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CLL Q1 Charts -->
+                <div class="charts-section">
+                  <h3 class="chart-section-heading">Charts</h3>
+
+                  <!-- CLL Chart 1: 4-Step Sequential Funnel -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 1</span>
+                      <h4 class="chart-title">CLL sequential treatment funnel — universe to Jaypirca-treated</h4>
+                      <p class="chart-subtitle">Source: PurpleLab HealthNexus™ PMN · OPEN/CLOSED · Jan 2017–Jan 2026</p>
+                    </div>
+                    <div class="chart-wrap">
+                      <canvas id="cllFunnelChart" aria-label="Horizontal funnel: CLL universe 214K, systemic therapy 55K, 2L+ BTKi eligible 10.7K, Jaypirca-treated 894"></canvas>
+                    </div>
+                  </div>
+
+                  <!-- CLL Chart 2: Penetration by Denominator -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 2</span>
+                      <h4 class="chart-title">Jaypirca penetration rate by denominator</h4>
+                      <p class="chart-subtitle">Same 894 treated patients — denominator choice changes the commercial story</p>
+                    </div>
+                    <div class="chart-wrap" style="height:330px">
+                      <canvas id="cllPenChart" aria-label="Horizontal bars showing Jaypirca penetration rate by denominator"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Engine Tables (collapsible) -->
+                <div class="rounded-lg border border-neutral-200 bg-neutral-50">
+                  <button onclick="toggleCllTables()" class="flex w-full items-center justify-between px-4 py-3 text-left">
+                    <div>
+                      <p class="text-sm font-semibold text-neutral-700">Engine Query Results</p>
+                      <p class="text-[11px] text-neutral-500">1 table · 8 rows from purplelab-dev.TMP_JOCE</p>
+                    </div>
+                    <svg id="cll-chevron" class="h-5 w-5 text-neutral-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+                  <div id="cll-tables-content" class="hidden border-t border-neutral-200 p-4 space-y-4">
+                    <div>
+                      <p class="mb-1 text-sm font-semibold text-neutral-800">P&MN Sequential Step Summary — CLL / Jaypirca</p>
+                      <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_STEP_SUM_CLL_Jaypirca · 8 rows</p>
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                          <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Data Source</th><th class="px-3 py-2 font-medium">Step</th><th class="px-3 py-2 font-medium">Description</th><th class="px-3 py-2 text-right font-medium">Patients</th><th class="px-3 py-2 text-right font-medium">Conversion</th></tr></thead>
+                          <tbody class="text-neutral-800">
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2">CLL Universe (all Dx)</td><td class="px-3 py-2 text-right mono">214,823</td><td class="px-3 py-2 text-right mono">—</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">STEP 2</td><td class="px-3 py-2">Received systemic therapy</td><td class="px-3 py-2 text-right mono">54,892</td><td class="px-3 py-2 text-right mono">25.6%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">STEP 3</td><td class="px-3 py-2">Eligible for 2L+ BTKi</td><td class="px-3 py-2 text-right mono">10,742</td><td class="px-3 py-2 text-right mono">19.6%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">STEP 4A</td><td class="px-3 py-2">Treated with Jaypirca</td><td class="px-3 py-2 text-right mono">894</td><td class="px-3 py-2 text-right mono">8.3%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">STEP 4B</td><td class="px-3 py-2">Eligible, NOT on Jaypirca</td><td class="px-3 py-2 text-right mono">9,848</td><td class="px-3 py-2 text-right mono">91.7%</td></tr>
+                            <tr class="border-b border-neutral-100 bg-neutral-50"><td class="px-3 py-2" colspan="2"></td><td class="px-3 py-2 text-xs text-neutral-500">Rx Measurement (broader window)</td><td class="px-3 py-2 text-right mono">31,826</td><td class="px-3 py-2 text-right mono">—</td></tr>
+                            <tr class="border-b border-neutral-100 bg-neutral-50"><td class="px-3 py-2" colspan="2"></td><td class="px-3 py-2 text-xs text-neutral-500">Dual-count ratio</td><td class="px-3 py-2 text-right mono">35.6x</td><td class="px-3 py-2 text-right mono">—</td></tr>
+                            <tr class="bg-neutral-50"><td class="px-3 py-2" colspan="2"></td><td class="px-3 py-2 text-xs text-neutral-500">Universe penetration</td><td class="px-3 py-2 text-right mono">0.42%</td><td class="px-3 py-2 text-right mono">—</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Follow-on Questions -->
+                <div class="space-y-3">
+                  <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
+                  <div class="space-y-2">
+                    <button class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left opacity-50 cursor-not-allowed" style="border-color:#e5e5e5;background:#fafafa;">
+                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#a3a3a3;">Q2</span>
+                      <span class="flex-1 text-[15px] text-neutral-400">How has treatment adoption grown year over year?</span>
+                      <span class="text-xs text-neutral-400">Coming soon</span>
+                    </button>
+                    <button onclick="populateChatInput('What is the competitive BTKi landscape for CLL?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
+                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q3</span>
+                      <span class="flex-1 text-[15px] text-neutral-800">What is the competitive BTKi landscape for CLL?</span>
                       <svg class="h-4 w-4 shrink-0" style="color:#7c3aed;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                   </div>
@@ -843,17 +1044,25 @@ var TOOLS = [
 
 var TAS = [
   { id: 'copd', name: 'COPD', count: '23.4M' },
+  { id: 'cll', name: 'CLL', count: '215K' },
   { id: 'asthma', name: 'Asthma', count: '27.1M', disabled: true },
   { id: 'atopic-derm', name: 'Atopic Dermatitis', count: '9.8M', disabled: true },
-  { id: 'crswnp', name: 'CRSwNP', count: '1.2M', disabled: true },
 ];
 
-var DRUGS = [
+var COPD_DRUGS = [
   { id: 'dupixent', name: 'Dupixent', generic: 'dupilumab', mfr: 'Sanofi / Regeneron' },
   { id: 'tezspire', name: 'Tezspire', generic: 'tezepelumab', mfr: 'AstraZeneca / Amgen', disabled: true },
   { id: 'fasenra', name: 'Fasenra', generic: 'benralizumab', mfr: 'AstraZeneca', disabled: true },
   { id: 'nucala', name: 'Nucala', generic: 'mepolizumab', mfr: 'GSK', disabled: true },
 ];
+
+var CLL_DRUGS = [
+  { id: 'jaypirca', name: 'Jaypirca', generic: 'pirtobrutinib', mfr: 'Eli Lilly' },
+  { id: 'calquence', name: 'Calquence', generic: 'acalabrutinib', mfr: 'AstraZeneca', disabled: true },
+  { id: 'imbruvica', name: 'Imbruvica', generic: 'ibrutinib', mfr: 'AbbVie / J&J', disabled: true },
+];
+
+var DRUGS_BY_TA = { copd: COPD_DRUGS, cll: CLL_DRUGS };
 
 var TIMEFRAMES = [
   { id: '2025', label: 'Full Year 2025', range: 'Jan 1 – Dec 31, 2025' },
@@ -861,7 +1070,7 @@ var TIMEFRAMES = [
   { id: '2024', label: 'Full Year 2024', range: 'Jan 1 – Dec 31, 2024', disabled: true },
 ];
 
-var PROC_STEPS = [
+var COPD_PROC_STEPS = [
   { label: 'Connecting to HealthNexus data warehouse', dur: 1500 },
   { label: 'Querying COPD patient universe (23.4M records)', dur: 2000 },
   { label: 'Segmenting by Dupixent treatment status', dur: 1800 },
@@ -869,6 +1078,17 @@ var PROC_STEPS = [
   { label: 'Calculating penetration metrics', dur: 1200 },
   { label: 'Generating AI-powered insights', dur: 2000 },
 ];
+
+var CLL_PROC_STEPS = [
+  { label: 'Connecting to HealthNexus data warehouse', dur: 1500 },
+  { label: 'Querying CLL patient universe (215K records)', dur: 1800 },
+  { label: 'Building sequential treatment cohort (4 steps)', dur: 2200 },
+  { label: 'Segmenting by Jaypirca treatment status', dur: 1800 },
+  { label: 'Calculating whitespace opportunity', dur: 1200 },
+  { label: 'Generating AI-powered insights', dur: 2000 },
+];
+
+var PROC_STEPS_BY_TA = { copd: COPD_PROC_STEPS, cll: CLL_PROC_STEPS };
 
 // ======================== ICONS (SVG) ========================
 var checkSvg = '<svg class="h-3.5 w-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>';
@@ -887,15 +1107,21 @@ var calSmSvg = '<svg class="h-4 w-4" style="color:#7c3aed;" fill="none" stroke="
 function render() {
   var wizardEl = document.getElementById('wizard-section');
   var procEl = document.getElementById('processing-section');
-  var resultsEl = document.getElementById('results-section');
+  var copdResultsEl = document.getElementById('results-section');
+  var cllResultsEl = document.getElementById('cll-results-section');
   var chatBar = document.getElementById('chat-input-bar');
   var chatSpacer = document.getElementById('chat-spacer');
 
   wizardEl.classList.add('hidden');
   procEl.classList.add('hidden');
-  resultsEl.classList.add('hidden');
+  copdResultsEl.classList.add('hidden');
+  if (cllResultsEl) cllResultsEl.classList.add('hidden');
   chatBar.classList.add('hidden');
   chatSpacer.classList.add('hidden');
+
+  // Also hide Q2 sections when switching
+  var q2El = document.getElementById('q2-results-section');
+  if (q2El) q2El.classList.add('hidden');
 
   if (state.step === 'processing') {
     procEl.classList.remove('hidden');
@@ -903,9 +1129,22 @@ function render() {
     return;
   }
   if (state.step === 'results') {
-    resultsEl.classList.remove('hidden');
+    if (state.ta === 'cll' && cllResultsEl) {
+      cllResultsEl.classList.remove('hidden');
+    } else {
+      copdResultsEl.classList.remove('hidden');
+    }
     chatBar.classList.remove('hidden');
     chatSpacer.classList.remove('hidden');
+
+    // Update navbar title
+    var navTitle = document.getElementById('nav-title');
+    if (navTitle) {
+      var drugList = DRUGS_BY_TA[state.ta] || [];
+      var drugName = drugList.filter(function(d) { return state.drugs.indexOf(d.id) >= 0; }).map(function(d) { return d.name; }).join(', ');
+      var ta = TAS.find(function(t) { return t.id === state.ta; });
+      navTitle.textContent = drugName + ' ' + (ta ? ta.name : '') + ' Market Landscape';
+    }
     return;
   }
 
@@ -985,7 +1224,8 @@ function renderTAStep() {
 
 function renderDrugStep() {
   var html = '<div class="space-y-4"><div><h2 class="text-xl font-bold text-neutral-900">Select Drug(s)</h2><p class="text-sm text-neutral-500">Choose one or more drugs to analyze within the selected therapeutic area.</p></div><div class="grid gap-3">';
-  DRUGS.forEach(function(d) {
+  var drugList = DRUGS_BY_TA[state.ta] || [];
+  drugList.forEach(function(d) {
     var sel = state.drugs.indexOf(d.id) >= 0;
     var cls = d.disabled
       ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
@@ -1028,7 +1268,8 @@ function renderTimeframeStep() {
 function renderSummaryStep() {
   var tool = TOOLS.find(function(t) { return t.id === state.tool; });
   var ta = TAS.find(function(t) { return t.id === state.ta; });
-  var drugNames = DRUGS.filter(function(d) { return state.drugs.indexOf(d.id) >= 0; }).map(function(d) { return d.name; }).join(', ');
+  var drugList = DRUGS_BY_TA[state.ta] || [];
+  var drugNames = drugList.filter(function(d) { return state.drugs.indexOf(d.id) >= 0; }).map(function(d) { return d.name; }).join(', ');
   var tf = TIMEFRAMES.find(function(t) { return t.id === state.timeframe; });
   var rows = [
     { label: 'Analysis', value: tool ? tool.name : '', icon: chartSvg.replace('h-5 w-5', 'h-4 w-4') },
@@ -1078,7 +1319,7 @@ function renderNav() {
 
 // ======================== ACTIONS ========================
 function selectTool(id) { state.tool = id; state.step = 'ta'; render(); }
-function selectTA(id) { state.ta = id; state.step = 'drug'; render(); }
+function selectTA(id) { state.ta = id; state.drugs = []; state.step = 'drug'; render(); }
 function toggleDrug(id) {
   var idx = state.drugs.indexOf(id);
   if (idx >= 0) { state.drugs.splice(idx, 1); } else { state.drugs.push(id); }
@@ -1104,6 +1345,18 @@ function startProcessing() {
   var stepsEl = document.getElementById('processing-steps');
   var barEl = document.getElementById('progress-bar');
   var pctEl = document.getElementById('progress-pct');
+
+  // Update processing subtitle dynamically
+  var subtitleEl = document.getElementById('processing-subtitle');
+  if (subtitleEl) {
+    var ta = TAS.find(function(t) { return t.id === state.ta; });
+    var drugList = DRUGS_BY_TA[state.ta] || [];
+    var drugName = drugList.filter(function(d) { return state.drugs.indexOf(d.id) >= 0; }).map(function(d) { return d.name; }).join(', ');
+    var tf = TIMEFRAMES.find(function(t) { return t.id === state.timeframe; });
+    subtitleEl.textContent = 'Analyzing ' + (ta ? ta.name : '') + ' · ' + drugName + ' · ' + (tf ? tf.label : '');
+  }
+
+  var PROC_STEPS = PROC_STEPS_BY_TA[state.ta] || COPD_PROC_STEPS;
 
   stepsEl.innerHTML = PROC_STEPS.map(function(s, i) {
     return '<div class="flex items-center gap-3" id="proc-step-' + i + '">'
@@ -1188,6 +1441,13 @@ function toggleTables() {
 function toggleQ2Tables() {
   var content = document.getElementById('q2-tables-content');
   var chevron = document.getElementById('q2-chevron');
+  content.classList.toggle('hidden');
+  chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
+}
+
+function toggleCllTables() {
+  var content = document.getElementById('cll-tables-content');
+  var chevron = document.getElementById('cll-chevron');
   content.classList.toggle('hidden');
   chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
@@ -1482,15 +1742,160 @@ function initQ2Charts() {
   });
 }
 
+// ======================== CLL CHART RENDERING ========================
+var cllChartsInitialized = false;
+
+function initCllCharts() {
+  if (cllChartsInitialized) return;
+  var ctx1 = document.getElementById('cllFunnelChart');
+  var ctx2 = document.getElementById('cllPenChart');
+  if (!ctx1 || !ctx2) return;
+  if (ctx1.offsetParent === null) return;
+  cllChartsInitialized = true;
+
+  // CLL Chart 1: 4-Step Sequential Funnel (horizontal bar)
+  var funnelLabels = ['Step 1: CLL Universe', 'Step 2: Systemic Therapy', 'Step 3: 2L+ BTKi Eligible', 'Step 4: On Jaypirca'];
+  var funnelData = [214823, 54892, 10742, 894];
+  var funnelColors = ['#534AB7', '#7F77DD', '#AFA9EC', '#1D9E75'];
+
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: funnelLabels,
+      datasets: [{
+        data: funnelData,
+        backgroundColor: funnelColors,
+        borderRadius: 4,
+        barThickness: 36
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              return ctx.raw.toLocaleString() + ' patients';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'logarithmic',
+          min: 500,
+          title: { display: true, text: 'Patients (log scale)' },
+          ticks: {
+            callback: function(v) {
+              if (v >= 1000) return (v / 1000).toFixed(0) + 'K';
+              return v;
+            }
+          },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        y: {
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'barLabels',
+      afterDatasetsDraw: function(chart) {
+        var meta = chart.getDatasetMeta(0);
+        var cCtx = chart.ctx;
+        meta.data.forEach(function(bar, i) {
+          cCtx.save();
+          cCtx.font = 'bold 11px system-ui';
+          cCtx.fillStyle = '#1A1A2E';
+          cCtx.textAlign = 'left';
+          var val = funnelData[i];
+          var label = val >= 1000 ? (val / 1000).toFixed(val >= 100000 ? 0 : 1) + 'K' : val.toString();
+          cCtx.fillText(label, bar.x + 6, bar.y + 4);
+          cCtx.restore();
+        });
+      }
+    }]
+  });
+
+  // CLL Chart 2: Penetration by Denominator (horizontal bar)
+  var penLabels = ['vs. CLL Universe (214,823)', 'vs. Systemic Therapy (54,892)', 'vs. 2L+ BTKi Eligible (10,742)'];
+  var penData = [0.42, 1.63, 8.32];
+  var penColors = ['#AFA9EC', '#7F77DD', '#534AB7'];
+
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: penLabels,
+      datasets: [{
+        data: penData,
+        backgroundColor: penColors,
+        borderRadius: 4,
+        barThickness: 40
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) { return ctx.raw.toFixed(2) + '% penetration'; }
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 0,
+          max: 12,
+          title: { display: true, text: 'Penetration rate (%)' },
+          ticks: { callback: function(v) { return v + '%'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        y: {
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'penLabels',
+      afterDatasetsDraw: function(chart) {
+        var meta = chart.getDatasetMeta(0);
+        var cCtx = chart.ctx;
+        meta.data.forEach(function(bar, i) {
+          cCtx.save();
+          cCtx.font = 'bold 12px system-ui';
+          cCtx.fillStyle = '#1A1A2E';
+          cCtx.textAlign = 'left';
+          cCtx.fillText(penData[i].toFixed(2) + '%', bar.x + 6, bar.y + 4);
+          cCtx.restore();
+        });
+      }
+    }]
+  });
+}
+
 // Use MutationObserver to detect when results sections become visible
 var observer = new MutationObserver(function() {
   var q1Visible = !document.getElementById('results-section').classList.contains('hidden');
   var q2Visible = !document.getElementById('q2-results-section').classList.contains('hidden');
+  var cllEl = document.getElementById('cll-results-section');
+  var cllVisible = cllEl && !cllEl.classList.contains('hidden');
   if (q1Visible) setTimeout(initQ1Charts, 100);
   if (q2Visible) setTimeout(initQ2Charts, 100);
+  if (cllVisible) setTimeout(initCllCharts, 100);
 });
 observer.observe(document.getElementById('results-section'), { attributes: true, attributeFilter: ['class'] });
 observer.observe(document.getElementById('q2-results-section'), { attributes: true, attributeFilter: ['class'] });
+observer.observe(document.getElementById('cll-results-section'), { attributes: true, attributeFilter: ['class'] });
 
 // Also hook into showQ2Results
 var origShowQ2 = showQ2Results;
