@@ -30,30 +30,32 @@ TABLE_DUPIXENT_YN = f"{BQ_PROJECT}.{DATASET}.IRON_POC_STEP_SUM_COPD_Dupixent_YN"
 TABLE_EOSINO = f"{BQ_PROJECT}.{DATASET}.IRON_POC_STEP_SUM_COPD_EOSINO"
 
 ENGINE_QUERY = f"""
-WITH dupixent AS (
-  SELECT
-    Dupixent_YN,
-    Therapy_Step,
-    Patient_Count,
-    Pct_of_Total
-  FROM `{TABLE_DUPIXENT_YN}`
-),
-eos AS (
-  SELECT
-    Eos_Cohort,
-    Therapy_Step,
-    Patient_Count,
-    Pct_of_Total
-  FROM `{TABLE_EOSINO}`
-)
-SELECT 'dupixent_yn' AS source_table, CAST(Dupixent_YN AS STRING) AS cohort,
-       Therapy_Step, Patient_Count, Pct_of_Total
-FROM dupixent
+SELECT
+  'dupixent_yn' AS source_table,
+  Data_Source,
+  Group_Name,
+  Step_Name,
+  Patients,
+  Claims,
+  Encounters,
+  Male_Patients,
+  Female_Patients,
+  Unknown_Patients
+FROM `{TABLE_DUPIXENT_YN}`
 UNION ALL
-SELECT 'eos_cohort'  AS source_table, Eos_Cohort AS cohort,
-       Therapy_Step, Patient_Count, Pct_of_Total
-FROM eos
-ORDER BY source_table, cohort, Therapy_Step
+SELECT
+  'eos_cohort' AS source_table,
+  Data_Source,
+  Group_Name,
+  Step_Name,
+  Patients,
+  Claims,
+  Encounters,
+  Male_Patients,
+  Female_Patients,
+  Unknown_Patients
+FROM `{TABLE_EOSINO}`
+ORDER BY source_table, Group_Name, Step_Name, Data_Source
 """
 
 # ── Prompt template ──────────────────────────────────────────────────────────
@@ -77,14 +79,18 @@ USER_PROMPT_TEMPLATE = textwrap.dedent("""\
     The query returned rows from two summary tables.
 
     ### Table 1 — P&MN Step Summary (Dupixent Y/N)
-    Columns: Dupixent_YN, Therapy_Step, Patient_Count, Pct_of_Total
+    Columns: Data_Source (OPEN/CLOSED/OPEN+CLOSED), Group_Name (cohort),
+    Step_Name (therapy step), Patients, Claims, Encounters,
+    Male_Patients, Female_Patients, Unknown_Patients
 
     ```
     {dupixent_rows}
     ```
 
     ### Table 2 — Eos Cohort Step Summary
-    Columns: Eos_Cohort, Therapy_Step, Patient_Count, Pct_of_Total
+    Columns: Data_Source (OPEN/CLOSED/OPEN+CLOSED), Group_Name (eos cohort),
+    Step_Name (therapy step), Patients, Claims, Encounters,
+    Male_Patients, Female_Patients, Unknown_Patients
 
     ```
     {eos_rows}
@@ -133,11 +139,17 @@ def format_rows(rows: list[dict], source: str) -> str:
     filtered = [r for r in rows if r["source_table"] == source]
     if not filtered:
         return "(no rows)"
-    lines = []
+    header = (
+        f"  {'Data_Source':>12s} | {'Group_Name':>12s} | {'Step_Name':>8s} "
+        f"| {'Patients':>12s} | {'Claims':>12s} | {'Encounters':>12s} "
+        f"| {'Male':>10s} | {'Female':>10s} | {'Unknown':>8s}"
+    )
+    lines = [header, "  " + "-" * len(header)]
     for r in filtered:
         lines.append(
-            f"  {r['cohort']:>20s} | {r['Therapy_Step']!s:>15s} "
-            f"| {r['Patient_Count']:>10,} | {r['Pct_of_Total']:>8.2f}%"
+            f"  {r['Data_Source']:>12s} | {r['Group_Name']:>12s} | {r['Step_Name']:>8s} "
+            f"| {r['Patients']:>12,} | {r['Claims']:>12,} | {r['Encounters']:>12,} "
+            f"| {r['Male_Patients']:>10,} | {r['Female_Patients']:>10,} | {r['Unknown_Patients']:>8,}"
         )
     return "\n".join(lines)
 
