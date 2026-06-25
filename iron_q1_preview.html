@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IRON — PurpleLab HealthNexus</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script>
     tailwindcss.config = {
       theme: {
@@ -39,6 +40,20 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+    /* Chart styles */
+    .charts-section { margin-top: 2rem; }
+    .chart-section-heading { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6B6B8A; margin-bottom: 1rem; }
+    .chart-card { background: #FFFFFF; border: 1px solid #E5E4F0; border-radius: 12px; padding: 1.25rem 1.5rem 1rem; margin-bottom: 1.25rem; }
+    .chart-header { margin-bottom: 0.75rem; }
+    .chart-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9B98C8; }
+    .chart-title { font-size: 14px; font-weight: 600; color: #1A1A2E; margin: 3px 0 2px; line-height: 1.3; }
+    .chart-subtitle { font-size: 11px; color: #9B98C8; margin: 0; }
+    .chart-wrap { position: relative; width: 100%; height: 280px; }
+    .chart-note { font-size: 11px; color: #9B98C8; font-style: italic; margin-top: 8px; margin-bottom: 0; }
+    .legend-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #4A4A6A; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
+    .legend-dot.legend-line { height: 3px; border-radius: 0; margin-top: 2px; }
   </style>
 </head>
 <body class="h-screen overflow-hidden" style="background:#f8f8fa;">
@@ -380,6 +395,36 @@
                   </div>
                 </div>
 
+                <!-- Q1 Charts -->
+                <div class="charts-section">
+                  <h3 class="chart-section-heading">Charts</h3>
+
+                  <!-- Q1 Chart 1: Patient Funnel -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 1</span>
+                      <h4 class="chart-title">COPD patient funnel — QD universe to Dupixent-treated</h4>
+                      <p class="chart-subtitle">Source: PurpleLab HealthNexus™ PMN · OPEN/CLOSED · Jan 2022–Apr 2026</p>
+                    </div>
+                    <div class="chart-wrap">
+                      <canvas id="q1FunnelChart" aria-label="Horizontal funnel: COPD QD universe 23.4M, label-eligible estimate 660K to 2.0M, Dupixent-treated 136K"></canvas>
+                    </div>
+                    <p class="chart-note">* Label-eligible population is a derived estimate combining claims signals and published literature. Not a HealthNexus-reported cohort.</p>
+                  </div>
+
+                  <!-- Q1 Chart 2: Penetration by Denominator -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 2</span>
+                      <h4 class="chart-title">Dupixent penetration rate by denominator</h4>
+                      <p class="chart-subtitle">Same 136K treated patients — denominator choice changes the commercial story</p>
+                    </div>
+                    <div class="chart-wrap" style="height:330px">
+                      <canvas id="q1PenChart" aria-label="Horizontal bars showing Dupixent penetration rate by denominator"></canvas>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Engine Tables (collapsible) -->
                 <div class="rounded-lg border border-neutral-200 bg-neutral-50">
                   <button onclick="toggleTables()" class="flex w-full items-center justify-between px-4 py-3 text-left">
@@ -602,6 +647,47 @@
                     <div>
                       <p class="text-sm font-semibold text-neutral-900">Patent Cliff — 2031 Urgency Window</p>
                       <p class="mt-1 text-sm text-neutral-700">With biosimilar entry possible after 2031, the brand team has approximately five full commercial years to maximize penetration. Growth strategy should front-load patient acquisition and build switching costs (data continuity, refill programs) to defend share post-LOE.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Q2 Charts -->
+                <div class="charts-section">
+                  <h3 class="chart-section-heading">Charts</h3>
+
+                  <!-- Q2 Chart 1: Annual volume + penetration overlay -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 1</span>
+                      <h4 class="chart-title">Dupixent-treated COPD patients by year</h4>
+                      <p class="chart-subtitle">Source: PurpleLab HealthNexus™ PMN · OPEN/CLOSED · Full years 2022–2025 · 2026 excluded (partial year)</p>
+                    </div>
+                    <div class="legend-row">
+                      <span class="legend-item"><span class="legend-dot" style="background:#AFA9EC"></span>COPD universe (M, right axis)</span>
+                      <span class="legend-item"><span class="legend-dot" style="background:#534AB7"></span>Dupixent-treated (K, left axis)</span>
+                      <span class="legend-item"><span class="legend-dot legend-line" style="background:#1D9E75"></span>QD penetration % (right axis)</span>
+                    </div>
+                    <div class="chart-wrap" style="height:320px">
+                      <canvas id="q2VolumeChart" aria-label="Grouped bar chart: Dupixent-treated COPD patients grew from 34906 in 2022 to 72895 in 2025"></canvas>
+                    </div>
+                    <p class="chart-note">Annual cohorts are not additive. Each year reflects unique patients active in that calendar year.</p>
+                  </div>
+
+                  <!-- Q2 Chart 2: YoY growth rate + penetration (phase-annotated) -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 2</span>
+                      <h4 class="chart-title">YoY growth rate and QD penetration (2022–2025)</h4>
+                      <p class="chart-subtitle">Growth rate = treated patient YoY change · Bar color encodes commercial phase  ·  <strong style="color:#534AB7">2025 re-acceleration highlighted</strong></p>
+                    </div>
+                    <div class="legend-row">
+                      <span class="legend-item"><span class="legend-dot" style="background:#7F77DD"></span>Rapid uptake</span>
+                      <span class="legend-item"><span class="legend-dot" style="background:#AFA9EC"></span>Moderation</span>
+                      <span class="legend-item"><span class="legend-dot" style="background:#534AB7"></span>Re-acceleration</span>
+                      <span class="legend-item"><span class="legend-dot legend-line" style="background:#1D9E75"></span>QD penetration %</span>
+                    </div>
+                    <div class="chart-wrap" style="height:280px">
+                      <canvas id="q2GrowthChart" aria-label="Bar and line chart: YoY growth rates 40.2, 18.0, 26.3 percent for 2023 2024 2025; QD penetration rising from 0.35 to 0.83 percent"></canvas>
                     </div>
                   </div>
                 </div>
@@ -1108,6 +1194,310 @@ function toggleQ2Tables() {
 
 // ======================== INIT ========================
 render();
+
+// ======================== CHART RENDERING ========================
+// Charts are initialized after results become visible via MutationObserver
+var chartsInitialized = { q1: false, q2: false };
+
+function initQ1Charts() {
+  if (chartsInitialized.q1) return;
+  var ctx1 = document.getElementById('q1FunnelChart');
+  var ctx2 = document.getElementById('q1PenChart');
+  if (!ctx1 || !ctx2) return;
+  if (ctx1.offsetParent === null) return; // not visible yet
+  chartsInitialized.q1 = true;
+
+  // Q1 Chart 1: Funnel
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ['QD Universe\n(23.4M)', 'Label-eligible est.\n(660K–2.0M)', 'Dupixent-treated\n(136K)'],
+      datasets: [{
+        label: 'Patients',
+        data: [23429388, 1330000, 136066],
+        backgroundColor: ['#AFA9EC', '#7F77DD', '#534AB7'],
+        borderRadius: 4,
+        barThickness: 56
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              var v = ctx.raw;
+              if (v >= 1e6) return (v/1e6).toFixed(2) + 'M patients';
+              if (v >= 1e3) return (v/1e3).toFixed(0) + 'K patients';
+              return v + ' patients';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { callback: function(v) { return v >= 1e6 ? (v/1e6).toFixed(0)+'M' : v >= 1e3 ? (v/1e3).toFixed(0)+'K' : v; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        y: {
+          ticks: { font: { size: 12 } },
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
+
+  // Q1 Chart 2: Penetration by Denominator
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: [
+        'vs. QD universe (23.4M)',
+        'vs. eos-coded COPD (192K)',
+        'vs. label-eligible midpoint (1.3M)'
+      ],
+      datasets: [{
+        label: 'Penetration %',
+        data: [0.58, 7.9, 10.2],
+        backgroundColor: ['#AFA9EC', '#7F77DD', '#534AB7'],
+        borderRadius: 4,
+        barThickness: 40
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) { return ctx.raw.toFixed(1) + '% penetration (same 136K treated patients)'; }
+          }
+        }
+      },
+      scales: {
+        x: {
+          max: 28,
+          ticks: { callback: function(v) { return v + '%'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        y: {
+          ticks: { font: { size: 11 } },
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function initQ2Charts() {
+  if (chartsInitialized.q2) return;
+  var ctx1 = document.getElementById('q2VolumeChart');
+  var ctx2 = document.getElementById('q2GrowthChart');
+  if (!ctx1 || !ctx2) return;
+  if (ctx1.offsetParent === null) return; // not visible yet
+  chartsInitialized.q2 = true;
+
+  var years = ['2022', '2023', '2024', '2025'];
+  var universeM = [9.94, 10.14, 9.40, 8.75];
+  var treatedK = [34.9, 48.9, 57.7, 72.9];
+  var penPcts = [0.35, 0.48, 0.61, 0.83];
+  var yoyPcts = [null, 40.2, 18.0, 26.3];
+
+  // Q2 Chart 1: Annual volume grouped bar + penetration line
+  new Chart(ctx1, {
+    data: {
+      labels: years,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'COPD universe (M)',
+          data: universeM,
+          backgroundColor: '#AFA9EC',
+          borderRadius: 3,
+          yAxisID: 'yRight',
+          order: 2
+        },
+        {
+          type: 'bar',
+          label: 'Dupixent-treated (K)',
+          data: treatedK,
+          backgroundColor: '#534AB7',
+          borderRadius: 3,
+          yAxisID: 'yLeft',
+          order: 1
+        },
+        {
+          type: 'line',
+          label: 'QD penetration %',
+          data: penPcts,
+          borderColor: '#1D9E75',
+          backgroundColor: 'transparent',
+          pointBackgroundColor: '#1D9E75',
+          pointRadius: 5,
+          borderWidth: 2,
+          borderDash: [4, 3],
+          yAxisID: 'yPen',
+          order: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              if (ctx.dataset.label.indexOf('universe') >= 0) return ctx.raw.toFixed(1) + 'M COPD universe';
+              if (ctx.dataset.label.indexOf('treated') >= 0) return ctx.raw.toFixed(0) + 'K treated patients';
+              return ctx.raw.toFixed(2) + '% QD penetration';
+            }
+          }
+        }
+      },
+      scales: {
+        yLeft: {
+          type: 'linear', position: 'left',
+          title: { display: true, text: 'Treated patients (K)' },
+          ticks: { callback: function(v) { return v + 'K'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        yRight: {
+          type: 'linear', position: 'right',
+          title: { display: true, text: 'COPD universe (M)' },
+          ticks: { callback: function(v) { return v + 'M'; } },
+          grid: { display: false },
+          border: { display: false }
+        },
+        yPen: {
+          type: 'linear', position: 'right',
+          display: false, min: 0, max: 1.5
+        },
+        x: {
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
+
+  // Q2 Chart 2: YoY growth rate bars + penetration line (phase-annotated)
+  var barColors = ['#C8C7C7', '#7F77DD', '#AFA9EC', '#534AB7']; // baseline, rapid, moderation, re-accel
+  var phaseLabels = ['', '+40.2% ↑ rapid uptake', '+18.0% growth moderates', '+26.3% ↑ re-acceleration'];
+
+  new Chart(ctx2, {
+    data: {
+      labels: years,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'YoY growth %',
+          data: yoyPcts,
+          backgroundColor: barColors,
+          borderRadius: 3,
+          yAxisID: 'yGrowth',
+          order: 2
+        },
+        {
+          type: 'line',
+          label: 'QD penetration %',
+          data: penPcts,
+          borderColor: '#1D9E75',
+          backgroundColor: 'transparent',
+          pointBackgroundColor: '#1D9E75',
+          pointRadius: 5,
+          borderWidth: 2,
+          borderDash: [4, 3],
+          yAxisID: 'yPen',
+          order: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              if (ctx.dataset.label.indexOf('growth') >= 0) {
+                return ctx.raw !== null ? '+' + ctx.raw.toFixed(1) + '% YoY' : 'baseline year';
+              }
+              return ctx.raw.toFixed(2) + '% QD penetration';
+            }
+          }
+        }
+      },
+      scales: {
+        yGrowth: {
+          type: 'linear', position: 'left',
+          min: 0, max: 55,
+          title: { display: true, text: 'YoY growth rate' },
+          ticks: { callback: function(v) { return v + '%'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        yPen: {
+          type: 'linear', position: 'right',
+          min: 0, max: 1.2,
+          title: { display: true, text: 'QD penetration %' },
+          ticks: { callback: function(v) { return v.toFixed(2) + '%'; } },
+          grid: { display: false },
+          border: { display: false }
+        },
+        x: {
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'phaseAnnotations',
+      afterDatasetsDraw: function(chart) {
+        var meta = chart.getDatasetMeta(0);
+        var ctx2 = chart.ctx;
+        meta.data.forEach(function(bar, i) {
+          if (!phaseLabels[i]) return;
+          ctx2.save();
+          ctx2.font = 'bold 10px system-ui';
+          ctx2.fillStyle = '#1A1A2E';
+          ctx2.textAlign = 'center';
+          ctx2.fillText(phaseLabels[i], bar.x, bar.y - 6);
+          ctx2.restore();
+        });
+      }
+    }]
+  });
+}
+
+// Use MutationObserver to detect when results sections become visible
+var observer = new MutationObserver(function() {
+  var q1Visible = !document.getElementById('results-section').classList.contains('hidden');
+  var q2Visible = !document.getElementById('q2-results-section').classList.contains('hidden');
+  if (q1Visible) setTimeout(initQ1Charts, 100);
+  if (q2Visible) setTimeout(initQ2Charts, 100);
+});
+observer.observe(document.getElementById('results-section'), { attributes: true, attributeFilter: ['class'] });
+observer.observe(document.getElementById('q2-results-section'), { attributes: true, attributeFilter: ['class'] });
+
+// Also hook into showQ2Results
+var origShowQ2 = showQ2Results;
+showQ2Results = function() {
+  origShowQ2();
+  setTimeout(initQ2Charts, 200);
+};
 </script>
 </body>
 </html>
