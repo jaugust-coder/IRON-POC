@@ -675,10 +675,10 @@
                 <div class="space-y-3">
                   <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
                   <div class="space-y-2">
-                    <button class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left opacity-50 cursor-not-allowed" style="border-color:#e5e5e5;background:#fafafa;">
-                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#a3a3a3;">Q2</span>
-                      <span class="flex-1 text-[15px] text-neutral-400">How has treatment adoption grown year over year?</span>
-                      <span class="text-xs text-neutral-400">Coming soon</span>
+                    <button onclick="populateChatInput('How has Jaypirca treatment adoption grown year over year?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
+                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q2</span>
+                      <span class="flex-1 text-[15px] text-neutral-800">How has Jaypirca treatment adoption grown year over year?</span>
+                      <svg class="h-4 w-4 shrink-0" style="color:#7c3aed;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                     <button onclick="populateChatInput('What is the competitive BTKi landscape for CLL?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
                       <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q3</span>
@@ -971,6 +971,297 @@
             </div>
           </div>
 
+          <!-- ==================== CLL Q2 RESULTS SECTION ==================== -->
+          <div id="cll-q2-results-section" class="hidden space-y-5 fade-in">
+
+            <!-- CLL Q2 User question bubble -->
+            <div class="flex justify-end">
+              <div class="max-w-[70%] rounded-2xl rounded-br-md px-5 py-3 text-[15px] text-white shadow-sm" style="background:#7c3aed;">
+                How has Jaypirca treatment adoption grown year over year?
+              </div>
+            </div>
+
+            <!-- CLL Q2 Context tags -->
+            <div class="flex justify-end">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+                  <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  Jaypirca
+                </span>
+                <span class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">CLL</span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+                  <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  2023 – 2025 (Full Calendar Years)
+                </span>
+              </div>
+            </div>
+
+            <!-- CLL Q2 AI Response -->
+            <div class="flex gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full" style="background:#ede9fe;">
+                <svg class="h-5 w-5" style="color:#6d28d9;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
+              </div>
+              <div class="min-w-0 flex-1 space-y-5">
+
+                <!-- Status badge -->
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-3 py-1 text-xs font-medium text-success-700">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Complete
+                  </span>
+                  <p class="text-xs text-neutral-500">Queried 4 tables · 18 rows · purplelab-dev.TMP_JOCE</p>
+                </div>
+
+                <!-- CLL Q2 KPI Banner -->
+                <div class="grid grid-cols-5 gap-3">
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Treated 2023 (Baseline)</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">312</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">First full year post-launch</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Treated 2025</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">894</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">Most recent full year</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Total Growth</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">+186%</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">2023 → 2025</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Jaypirca TRx Share</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">4.2%</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">Of 2L+ BTKi TRx (2025)</p>
+                  </div>
+                  <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                    <p class="text-xs text-neutral-500">Peak Year Adds</p>
+                    <p class="mt-1 text-xl font-bold text-neutral-900">+327</p>
+                    <p class="mt-0.5 text-[11px] text-neutral-400">2024 — highest single-year increment</p>
+                  </div>
+                </div>
+
+                <!-- CLL-specific KPI cards -->
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="rounded-lg border p-4 shadow-sm" style="border-color:#fed7aa;background:#fff7ed;">
+                    <p class="text-xs font-medium" style="color:#9a3412;">Prior-line Decline</p>
+                    <p class="mt-1 text-2xl font-bold" style="color:#c2410c;">−43.6%</p>
+                    <p class="mt-0.5 text-[11px]" style="color:#9a3412;">Step 2 systemic therapy patients declining — upstream pool is shrinking</p>
+                  </div>
+                  <div class="rounded-lg border p-4 shadow-sm" style="border-color:#bbf7d0;background:#f0fdf4;">
+                    <p class="text-xs font-medium" style="color:#166534;">Market Share Growth</p>
+                    <p class="mt-1 text-2xl font-bold" style="color:#15803d;">1.8% → 4.2%</p>
+                    <p class="mt-0.5 text-[11px]" style="color:#166534;">Rx share of 2L+ BTKi market (2023 → 2025)</p>
+                  </div>
+                  <div class="rounded-lg border p-4 shadow-sm" style="border-color:#bfdbfe;background:#eff6ff;">
+                    <p class="text-xs font-medium" style="color:#1e40af;">Eligible Penetration</p>
+                    <p class="mt-1 text-2xl font-bold" style="color:#1d4ed8;">6.3% → 20.9%</p>
+                    <p class="mt-0.5 text-[11px]" style="color:#1e40af;">Penetration of 2L+ BTKi-eligible pool (Step 3), 2023 → 2025</p>
+                  </div>
+                </div>
+
+                <!-- CLL Q2 Trend Table -->
+                <div class="space-y-3">
+                  <h3 class="text-base font-semibold text-neutral-900">Year-over-Year Trend</h3>
+                  <div class="overflow-x-auto rounded-lg border border-neutral-200">
+                    <table class="w-full text-sm">
+                      <thead>
+                        <tr class="border-b border-neutral-200 bg-neutral-50 text-left text-neutral-600">
+                          <th class="px-4 py-2.5 font-medium">Year</th>
+                          <th class="px-4 py-2.5 text-right font-medium">Jaypirca Treated</th>
+                          <th class="px-4 py-2.5 text-right font-medium">Jaypirca TRx</th>
+                          <th class="px-4 py-2.5 text-right font-medium">BTKi Share %</th>
+                          <th class="px-4 py-2.5 text-right font-medium">Eligible Pen. %</th>
+                          <th class="px-4 py-2.5 text-right font-medium">YoY Growth</th>
+                          <th class="px-4 py-2.5 font-medium">Phase</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="border-b border-neutral-100 text-neutral-800">
+                          <td class="px-4 py-2.5 font-medium">2023</td>
+                          <td class="px-4 py-2.5 text-right mono">312</td>
+                          <td class="px-4 py-2.5 text-right mono">2,184</td>
+                          <td class="px-4 py-2.5 text-right mono">1.8%</td>
+                          <td class="px-4 py-2.5 text-right mono">6.3%</td>
+                          <td class="px-4 py-2.5 text-right mono">—</td>
+                          <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-700">Launch Year</span></td>
+                        </tr>
+                        <tr class="border-b border-neutral-100 text-neutral-800">
+                          <td class="px-4 py-2.5 font-medium">2024</td>
+                          <td class="px-4 py-2.5 text-right mono">639</td>
+                          <td class="px-4 py-2.5 text-right mono">5,106</td>
+                          <td class="px-4 py-2.5 text-right mono">3.1%</td>
+                          <td class="px-4 py-2.5 text-right mono">13.8%</td>
+                          <td class="px-4 py-2.5 text-right mono">+104.8%</td>
+                          <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-success-100 px-2 py-0.5 text-xs font-medium text-success-700">Rapid Uptake</span></td>
+                        </tr>
+                        <tr class="border-b border-neutral-100 text-neutral-800">
+                          <td class="px-4 py-2.5 font-medium">2025</td>
+                          <td class="px-4 py-2.5 text-right mono">894</td>
+                          <td class="px-4 py-2.5 text-right mono">7,858</td>
+                          <td class="px-4 py-2.5 text-right mono">4.2%</td>
+                          <td class="px-4 py-2.5 text-right mono">20.9%</td>
+                          <td class="px-4 py-2.5 text-right mono">+39.9%</td>
+                          <td class="px-4 py-2.5"><span class="inline-flex items-center rounded-full bg-success-100 px-2 py-0.5 text-xs font-medium text-success-700">Sustained Growth</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- CLL Q2 Insight Section -->
+                <div class="space-y-4">
+                  <h3 class="text-base font-semibold text-neutral-900">Insight</h3>
+                  <p class="text-[15px] leading-relaxed text-neutral-700">Jaypirca adoption in CLL has grown 186% over its first two full commercial years (2023–2025), climbing from 312 treated patients at launch to 894 by the end of 2025. TRx volume has scaled in parallel, rising from 2,184 to 7,858 prescriptions, while market share of the 2L+ BTKi segment has more than doubled from 1.8% to 4.2%. These are strong early-lifecycle signals — Jaypirca is not just adding patients; it is capturing a growing share of the competitive BTKi market.</p>
+                  <p class="text-[15px] leading-relaxed text-neutral-700">The penetration story is particularly compelling when measured against the eligible pool. Among Step 3 patients (2L+ BTKi-eligible), Jaypirca penetration has surged from 6.3% to 20.9% — meaning roughly one in five eligible patients is now on therapy. Year-over-year patient growth moderated from +104.8% (2024) to +39.9% (2025), which is a normal launch-curve shape rather than a deceleration signal: the absolute patient adds remained substantial (+255 in 2025 vs. +327 in 2024), and the denominator effect of a growing base naturally compresses percentage growth rates.</p>
+                  <p class="text-[15px] leading-relaxed text-neutral-700">However, the upstream pool is contracting. Step 2 systemic therapy patients have declined 43.6% over the period, compressing the eligible funnel that feeds Jaypirca's market. This means the brand's impressive penetration gains are partly a denominator effect — the eligible pool is shrinking even as treated counts grow. This creates a commercial urgency signal: the window to capture remaining whitespace is narrowing as the treatable population contracts. The brand team should accelerate penetration now while the eligible pool still supports meaningful absolute patient adds, and model scenarios for steady-state treatment volumes under continued upstream decline.</p>
+                </div>
+
+                <!-- CLL Q2 Watch Signals -->
+                <div class="space-y-3">
+                  <h3 class="text-base font-semibold text-neutral-900">Watch Signals</h3>
+                  <div class="flex gap-3 rounded-lg border p-4" style="border-color:#fed7aa;background:#fff7ed;">
+                    <svg class="mt-0.5 h-5 w-5 shrink-0" style="color:#ea580c;" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    <div>
+                      <p class="text-sm font-semibold text-neutral-900">Shrinking Eligible Pool</p>
+                      <p class="mt-1 text-sm text-neutral-700">Step 2 systemic therapy patients declined −43.6%, compressing the funnel that feeds 2L+ BTKi eligibility. Jaypirca's penetration gains are partly denominator-driven. Monitor whether absolute treated counts can sustain growth as the eligible base contracts further.</p>
+                    </div>
+                  </div>
+                  <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+                    <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    <div>
+                      <p class="text-sm font-semibold text-neutral-900">Competitive Share Trajectory</p>
+                      <p class="mt-1 text-sm text-neutral-700">Jaypirca's BTKi market share reached 4.2% in 2025, up from 1.8% at launch. While growing, this remains a small fraction of the 2L+ BTKi market. Track share trajectory quarterly to assess whether the growth rate is sufficient to reach meaningful competitive position before the eligible pool contracts further.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CLL Q2 Charts -->
+                <div class="charts-section">
+                  <h3 class="chart-section-heading">Charts</h3>
+
+                  <!-- CLL Q2 Chart 1: Treated patients + Jaypirca TRx/Share -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 1</span>
+                      <h4 class="chart-title">Jaypirca-treated patients and TRx volume by year</h4>
+                      <p class="chart-subtitle">Source: PurpleLab HealthNexus™ PMN · OPEN/CLOSED · Full years 2023–2025</p>
+                    </div>
+                    <div class="legend-row">
+                      <span class="legend-item"><span class="legend-dot" style="background:#534AB7"></span>Jaypirca-treated patients (left axis)</span>
+                      <span class="legend-item"><span class="legend-dot" style="background:#AFA9EC"></span>Jaypirca TRx (left axis)</span>
+                      <span class="legend-item"><span class="legend-dot legend-line" style="background:#1D9E75"></span>BTKi market share % (right axis)</span>
+                    </div>
+                    <div class="chart-wrap" style="height:320px">
+                      <canvas id="cllQ2VolumeChart" aria-label="Grouped bar chart: Jaypirca-treated CLL patients grew from 312 in 2023 to 894 in 2025, TRx from 2184 to 7858"></canvas>
+                    </div>
+                    <p class="chart-note">Annual cohorts are not additive. Each year reflects unique patients active in that calendar year.</p>
+                  </div>
+
+                  <!-- CLL Q2 Chart 2: Eligible penetration trend -->
+                  <div class="chart-card">
+                    <div class="chart-header">
+                      <span class="chart-eyebrow">Chart 2</span>
+                      <h4 class="chart-title">Eligible penetration and YoY growth (2023–2025)</h4>
+                      <p class="chart-subtitle">Penetration = Jaypirca treated ÷ Step 3 (2L+ BTKi eligible) · Bar color encodes commercial phase</p>
+                    </div>
+                    <div class="legend-row">
+                      <span class="legend-item"><span class="legend-dot" style="background:#C8C7C7"></span>Launch year</span>
+                      <span class="legend-item"><span class="legend-dot" style="background:#7F77DD"></span>Rapid uptake</span>
+                      <span class="legend-item"><span class="legend-dot" style="background:#534AB7"></span>Sustained growth</span>
+                      <span class="legend-item"><span class="legend-dot legend-line" style="background:#1D9E75"></span>Eligible penetration %</span>
+                    </div>
+                    <div class="chart-wrap" style="height:280px">
+                      <canvas id="cllQ2GrowthChart" aria-label="Bar and line chart: YoY growth 104.8 and 39.9 percent for 2024 2025; eligible penetration rising from 6.3 to 20.9 percent"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CLL Q2 Engine Tables (collapsible) -->
+                <div class="rounded-lg border border-neutral-200 bg-neutral-50">
+                  <button onclick="toggleCllQ2Tables()" class="flex w-full items-center justify-between px-4 py-3 text-left">
+                    <div>
+                      <p class="text-sm font-semibold text-neutral-700">Engine Query Results</p>
+                      <p class="text-[11px] text-neutral-500">4 tables · 18 rows from purplelab-dev.TMP_JOCE</p>
+                    </div>
+                    <svg id="cll-q2-chevron" class="h-5 w-5 text-neutral-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+                  <div id="cll-q2-tables-content" class="hidden border-t border-neutral-200 p-4 space-y-4">
+                    <div>
+                      <p class="mb-1 text-sm font-semibold text-neutral-800">Adoption Trend — Jaypirca in CLL (YoY)</p>
+                      <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_TREND_CLL_Jaypirca · 3 rows</p>
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                          <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Year</th><th class="px-3 py-2 font-medium">Treated</th><th class="px-3 py-2 font-medium">Jaypirca TRx</th><th class="px-3 py-2 font-medium">BTKi Share</th><th class="px-3 py-2 font-medium">Eligible Pen.</th><th class="px-3 py-2 font-medium">YoY Growth</th><th class="px-3 py-2 font-medium">Phase</th></tr></thead>
+                          <tbody class="text-neutral-800">
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">2023</td><td class="px-3 py-2">312</td><td class="px-3 py-2">2,184</td><td class="px-3 py-2">1.8%</td><td class="px-3 py-2">6.3%</td><td class="px-3 py-2">—</td><td class="px-3 py-2">Launch Year</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">2024</td><td class="px-3 py-2">639</td><td class="px-3 py-2">5,106</td><td class="px-3 py-2">3.1%</td><td class="px-3 py-2">13.8%</td><td class="px-3 py-2">+104.8%</td><td class="px-3 py-2">Rapid Uptake</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">2025</td><td class="px-3 py-2">894</td><td class="px-3 py-2">7,858</td><td class="px-3 py-2">4.2%</td><td class="px-3 py-2">20.9%</td><td class="px-3 py-2">+39.9%</td><td class="px-3 py-2">Sustained Growth</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="mb-1 text-sm font-semibold text-neutral-800">Step 2 Annual Decline — Systemic Therapy</p>
+                      <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_STEP2_ANNUAL · 3 rows</p>
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                          <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Year</th><th class="px-3 py-2 font-medium">Step 2 Patients</th><th class="px-3 py-2 font-medium">YoY Change</th></tr></thead>
+                          <tbody class="text-neutral-800">
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">2023</td><td class="px-3 py-2">78,412</td><td class="px-3 py-2">—</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">2024</td><td class="px-3 py-2">61,338</td><td class="px-3 py-2">−21.8%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">2025</td><td class="px-3 py-2">44,219</td><td class="px-3 py-2">−27.9%</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="mb-1 text-sm font-semibold text-neutral-800">KPI Output — CLL Growth Metrics</p>
+                      <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_KPI_CLL_Jaypirca_GROWTH · 6 rows</p>
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                          <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Metric</th><th class="px-3 py-2 font-medium">Value</th></tr></thead>
+                          <tbody class="text-neutral-800">
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">treated_N_first</td><td class="px-3 py-2">312 (2023)</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">treated_N_last</td><td class="px-3 py-2">894 (2025)</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">total_growth_pct</td><td class="px-3 py-2">+186%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">step2_decline_pct</td><td class="px-3 py-2">−43.6%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">rx_share_2023 → rx_share_2025</td><td class="px-3 py-2">1.8% → 4.2%</td></tr>
+                            <tr class="border-b border-neutral-100"><td class="px-3 py-2">eligible_pen_2023 → eligible_pen_2025</td><td class="px-3 py-2">6.3% → 20.9%</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CLL Q2 Follow-on Questions -->
+                <div class="space-y-3">
+                  <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
+                  <div class="space-y-2">
+                    <button onclick="populateChatInput('How large is the CLL patient universe, and what share is currently treated?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
+                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q1</span>
+                      <span class="flex-1 text-[15px] text-neutral-800">How large is the CLL patient universe, and what share is currently treated?</span>
+                      <svg class="h-4 w-4 shrink-0" style="color:#7c3aed;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <button onclick="populateChatInput('What is the competitive BTKi landscape for CLL?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
+                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q3</span>
+                      <span class="flex-1 text-[15px] text-neutral-800">What is the competitive BTKi landscape for CLL?</span>
+                      <svg class="h-4 w-4 shrink-0" style="color:#7c3aed;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <button onclick="populateChatInput('What does the upstream funnel contraction mean for Jaypirca forecasting?')" class="flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors" style="border-color:#ddd6fe;background:#f5f3ff;" onmouseover="this.style.borderColor='#a78bfa';this.style.background='#ede9fe'" onmouseout="this.style.borderColor='#ddd6fe';this.style.background='#f5f3ff'">
+                      <span class="shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold text-white" style="background:#7c3aed;">Q7</span>
+                      <span class="flex-1 text-[15px] text-neutral-800">What does the upstream funnel contraction mean for Jaypirca forecasting?</span>
+                      <svg class="h-4 w-4 shrink-0" style="color:#7c3aed;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <p class="text-xs text-neutral-400">Generated just now · IRON Q2 POC · purplelab-dev</p>
+              </div>
+            </div>
+          </div>
+
           <!-- Bottom spacer for chat input -->
           <div id="chat-spacer" class="hidden h-20"></div>
 
@@ -1122,6 +1413,8 @@ function render() {
   // Also hide Q2 sections when switching
   var q2El = document.getElementById('q2-results-section');
   if (q2El) q2El.classList.add('hidden');
+  var cllQ2El = document.getElementById('cll-q2-results-section');
+  if (cllQ2El) cllQ2El.classList.add('hidden');
 
   if (state.step === 'processing') {
     procEl.classList.remove('hidden');
@@ -1415,9 +1708,11 @@ function populateChatInput(text) {
 function handleChatSend() {
   var input = document.getElementById('chat-input');
   if (!input || !input.value.trim()) return;
-  var text = input.value.trim();
+  var text = input.value.trim().toLowerCase();
   input.value = '';
-  if (text.toLowerCase().indexOf('treatment adoption') !== -1 || text.toLowerCase().indexOf('grown year over year') !== -1) {
+  if (text.indexOf('jaypirca') !== -1 && (text.indexOf('adoption') !== -1 || text.indexOf('year over year') !== -1)) {
+    showCllQ2Results();
+  } else if (text.indexOf('treatment adoption') !== -1 || text.indexOf('grown year over year') !== -1) {
     showQ2Results();
   }
 }
@@ -1448,6 +1743,21 @@ function toggleQ2Tables() {
 function toggleCllTables() {
   var content = document.getElementById('cll-tables-content');
   var chevron = document.getElementById('cll-chevron');
+  content.classList.toggle('hidden');
+  chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
+}
+
+function showCllQ2Results() {
+  var section = document.getElementById('cll-q2-results-section');
+  if (section) {
+    section.classList.remove('hidden');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function toggleCllQ2Tables() {
+  var content = document.getElementById('cll-q2-tables-content');
+  var chevron = document.getElementById('cll-q2-chevron');
   content.classList.toggle('hidden');
   chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
@@ -1883,25 +2193,202 @@ function initCllCharts() {
   });
 }
 
+// ======================== CLL Q2 CHART RENDERING ========================
+var cllQ2ChartsInitialized = false;
+
+function initCllQ2Charts() {
+  if (cllQ2ChartsInitialized) return;
+  var ctx1 = document.getElementById('cllQ2VolumeChart');
+  var ctx2 = document.getElementById('cllQ2GrowthChart');
+  if (!ctx1 || !ctx2) return;
+  if (ctx1.offsetParent === null) return;
+  cllQ2ChartsInitialized = true;
+
+  var years = ['2023', '2024', '2025'];
+  var treatedPts = [312, 639, 894];
+  var jaypircaTrx = [2184, 5106, 7858];
+  var btkiSharePcts = [1.8, 3.1, 4.2];
+  var eligiblePenPcts = [6.3, 13.8, 20.9];
+  var yoyPcts = [null, 104.8, 39.9];
+
+  // CLL Q2 Chart 1: Treated patients + Jaypirca TRx grouped bar + BTKi share line
+  new Chart(ctx1, {
+    data: {
+      labels: years,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Jaypirca TRx',
+          data: jaypircaTrx,
+          backgroundColor: '#AFA9EC',
+          borderRadius: 3,
+          yAxisID: 'yLeft',
+          order: 2
+        },
+        {
+          type: 'bar',
+          label: 'Jaypirca-treated patients',
+          data: treatedPts,
+          backgroundColor: '#534AB7',
+          borderRadius: 3,
+          yAxisID: 'yLeft',
+          order: 1
+        },
+        {
+          type: 'line',
+          label: 'BTKi market share %',
+          data: btkiSharePcts,
+          borderColor: '#1D9E75',
+          backgroundColor: 'transparent',
+          pointBackgroundColor: '#1D9E75',
+          pointRadius: 5,
+          borderWidth: 2,
+          borderDash: [4, 3],
+          yAxisID: 'yShare',
+          order: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              if (ctx.dataset.label.indexOf('TRx') >= 0) return ctx.raw.toLocaleString() + ' TRx';
+              if (ctx.dataset.label.indexOf('treated') >= 0) return ctx.raw.toLocaleString() + ' patients';
+              return ctx.raw.toFixed(1) + '% BTKi share';
+            }
+          }
+        }
+      },
+      scales: {
+        yLeft: {
+          type: 'linear', position: 'left',
+          title: { display: true, text: 'Patients / TRx' },
+          ticks: { callback: function(v) { return v >= 1000 ? (v/1000).toFixed(1) + 'K' : v; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        yShare: {
+          type: 'linear', position: 'right',
+          min: 0, max: 6,
+          title: { display: true, text: 'BTKi market share %' },
+          ticks: { callback: function(v) { return v.toFixed(1) + '%'; } },
+          grid: { display: false },
+          border: { display: false }
+        },
+        x: {
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
+
+  // CLL Q2 Chart 2: YoY growth rate bars + eligible penetration line (no reaccel annotation)
+  var barColors = ['#C8C7C7', '#7F77DD', '#534AB7'];
+
+  new Chart(ctx2, {
+    data: {
+      labels: years,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'YoY growth %',
+          data: yoyPcts,
+          backgroundColor: barColors,
+          borderRadius: 3,
+          yAxisID: 'yGrowth',
+          order: 2
+        },
+        {
+          type: 'line',
+          label: 'Eligible penetration %',
+          data: eligiblePenPcts,
+          borderColor: '#1D9E75',
+          backgroundColor: 'transparent',
+          pointBackgroundColor: '#1D9E75',
+          pointRadius: 5,
+          borderWidth: 2,
+          borderDash: [4, 3],
+          yAxisID: 'yPen',
+          order: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              if (ctx.dataset.label.indexOf('growth') >= 0) {
+                return ctx.raw !== null ? '+' + ctx.raw.toFixed(1) + '% YoY' : 'launch year';
+              }
+              return ctx.raw.toFixed(1) + '% eligible penetration';
+            }
+          }
+        }
+      },
+      scales: {
+        yGrowth: {
+          type: 'linear', position: 'left',
+          min: 0, max: 130,
+          title: { display: true, text: 'YoY growth rate' },
+          ticks: { callback: function(v) { return v + '%'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        yPen: {
+          type: 'linear', position: 'right',
+          min: 0, max: 28,
+          title: { display: true, text: 'Eligible penetration %' },
+          ticks: { callback: function(v) { return v + '%'; } },
+          grid: { display: false },
+          border: { display: false }
+        },
+        x: {
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
+
 // Use MutationObserver to detect when results sections become visible
 var observer = new MutationObserver(function() {
   var q1Visible = !document.getElementById('results-section').classList.contains('hidden');
   var q2Visible = !document.getElementById('q2-results-section').classList.contains('hidden');
   var cllEl = document.getElementById('cll-results-section');
   var cllVisible = cllEl && !cllEl.classList.contains('hidden');
+  var cllQ2El = document.getElementById('cll-q2-results-section');
+  var cllQ2Visible = cllQ2El && !cllQ2El.classList.contains('hidden');
   if (q1Visible) setTimeout(initQ1Charts, 100);
   if (q2Visible) setTimeout(initQ2Charts, 100);
   if (cllVisible) setTimeout(initCllCharts, 100);
+  if (cllQ2Visible) setTimeout(initCllQ2Charts, 100);
 });
 observer.observe(document.getElementById('results-section'), { attributes: true, attributeFilter: ['class'] });
 observer.observe(document.getElementById('q2-results-section'), { attributes: true, attributeFilter: ['class'] });
 observer.observe(document.getElementById('cll-results-section'), { attributes: true, attributeFilter: ['class'] });
+observer.observe(document.getElementById('cll-q2-results-section'), { attributes: true, attributeFilter: ['class'] });
 
-// Also hook into showQ2Results
+// Also hook into showQ2Results and showCllQ2Results
 var origShowQ2 = showQ2Results;
 showQ2Results = function() {
   origShowQ2();
   setTimeout(initQ2Charts, 200);
+};
+var origShowCllQ2 = showCllQ2Results;
+showCllQ2Results = function() {
+  origShowCllQ2();
+  setTimeout(initCllQ2Charts, 200);
 };
 </script>
 </body>
