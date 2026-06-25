@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* Custom Allure Report Theme */
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222.2 47.4% 11.2%);
+
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
+
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 47.4% 11.2%);
+
+  --border: hsl(214.3 31.8% 91.4%);
+  --input: hsl(214.3 31.8% 91.4%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 47.4% 11.2%);
+
+  --primary: hsl(263 69% 60%);
+  --primary-foreground: hsl(210 40% 98%);
+
+  --secondary: hsl(210 40% 96.1%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+  --accent: hsl(210 40% 96.1%);
+  --accent-foreground: hsl(222.2 47.4% 11.2%);
+
+  --destructive: hsl(0 100% 50%);
+  --destructive-foreground: hsl(210 40% 98%);
+
+  --ring: hsl(215 20.2% 65.1%);
+
+  --radius: 0.5rem;
+
+  /* Design system variables */
+  /* System colors: */
+  --neutral-0: hsl(0 0% 100%);
+  --neutral-100: hsl(210 14% 97%);
+  --neutral-200: hsl(220 12% 95%);
+  --neutral-300: hsl(218 13% 88%);
+  --neutral-400: hsl(219 13% 74%);
+  --neutral-500: hsl(217 13% 58%);
+  --neutral-700: hsl(218 16% 45%);
+  --neutral-800: hsl(218 24% 35%);
+  --neutral-900: hsl(218 36% 27%);
+  --neutral-1000: hsl(218 76% 15%);
+
+  --determinal-100: hsl(0 80% 98%);
+  --determinal-200: hsl(0 100% 94%);
+  --determinal-300: hsl(4 96% 78%);
+  --determinal-400: hsl(4 91% 69%);
+  --determinal-500: hsl(4 85% 63%);
+  --determinal-600: hsl(4 74% 56%);
+  --determinal-700: lch(46.09% 69.69 35.72);
+  --determinal-800: hsl(4 66% 41%);
+  --determinal-900: hsl(0 67% 26%);
+  --determinal-1000: hsl(5 36% 19%);
+
+  --warning-100: hsl(27 82% 98%);
+  --warning-200: hsl(24 96% 89%);
+  --warning-300: hsl(25 98% 79%);
+  --warning-400: hsl(25 99% 69%);
+  --warning-500: hsl(25 88% 60%);
+  --warning-600: hsl(25 87% 48%);
+  --warning-700: hsl(25 100% 38%);
+  --warning-800: hsl(26 100% 32%);
+  --warning-900: hsl(25 100% 22%);
+  --warning-1000: hsl(25 30% 17%);
+
+  --caution-100: hsl(55 100% 90%);
+  --caution-200: hsl(52 92% 80%);
+  --caution-300: hsl(52 92% 70%);
+  --caution-400: hsl(52 92% 60%);
+  --caution-500: hsl(52 94% 50%);
+  --caution-600: hsl(52 94% 40%);
+  --caution-700: hsl(52 95% 30%);
+  --caution-800: hsl(52 94% 20%);
+  --caution-900: hsl(51 96% 10%);
+  --caution-1000: hsl(48 31% 15%);
+
+  --success-100: hsl(147 53% 97%);
+  --success-200: hsl(144 83% 91%);
+  --success-300: hsl(144 58% 75%);
+  --success-400: hsl(144 59% 62%);
+  --success-500: hsl(144 60% 50%);
+  --success-600: hsl(144 99% 37%);
+  --success-700: hsl(144 100% 30%);
+  --success-800: hsl(144 100% 22%);
+  --success-900: hsl(144 100% 15%);
+  --success-1000: hsl(144 100% 7%);
+
+  --info-100: hsl(213 85% 97%);
+  --info-200: hsl(216 100% 94%);
+  --info-300: hsl(215 100% 76%);
+  --info-400: hsl(215 100% 67%);
+  --info-500: hsl(215 100% 61%);
+  --info-600: hsl(215 97% 55%);
+  --info-700: hsl(215 90% 47%);
+  --info-800: hsl(215 100% 40%);
+  --info-900: hsl(215 85% 23%);
+  --info-1000: hsl(216 40% 18%);
+
+  /* Actions colors: */
+
+  --primary-100: hsl(261 100% 97%);
+  --primary-200: hsl(263 78% 84%);
+  --primary-300: hsl(262 79% 76%);
+  --primary-400: hsl(263 79% 68%);
+  --primary-500: hsl(263 79% 60%);
+  --primary-600: hsl(262 53% 45%);
+  --primary-700: hsl(263 53% 37%);
+  --primary-800: hsl(262 53% 22%);
+  --primary-900: hsl(262 53% 22%);
+  --primary-1000: hsl(263 53% 15%);
+
+  --secondary-0: hsl(0 0% 100%);
+  --secondary-100: hsl(210 14% 97%);
+  --secondary-200: hsl(220 12% 95%);
+  --secondary-300: hsl(218 13% 88%);
+  --secondary-400: hsl(219 13% 74%);
+  --secondary-500: hsl(217 13% 58%);
+  --secondary-600: hsl(217 13% 52%);
+  --secondary-700: hsl(218 16% 45%);
+  --secondary-800: hsl(218 24% 35%);
+  --secondary-900: hsl(218 36% 27%);
+  --secondary-1000: hsl(218 76% 15%);
+
+  /* Accent colors: */
+  --ocean-100: hsl(187 71% 86%);
+  --ocean-200: hsl(187 71% 73%);
+  --ocean-300: hsl(187 71% 60%);
+  --ocean-400: hsl(187 82% 47%);
+  --ocean-500: hsl(187 82% 35%);
+  --ocean-600: hsl(187 82% 23%);
+  --ocean-700: hsl(187 83% 12%);
+
+  --mag-100: hsl(323 74% 90%);
+  --mag-200: hsl(324 75% 79%);
+  --mag-300: hsl(324 76% 69%);
+  --mag-400: hsl(323 76% 59%);
+  --mag-500: hsl(323 53% 44%);
+  --mag-600: hsl(323 53% 29%);
+  --mag-700: hsl(322 54% 15%);
+
+  /* Chart colors: */
+  --cloud-200: hsl(227 96% 79%);
+  --cloud-400: hsl(227 97% 58%);
+  --cloud-600: hsl(227 71% 29%);
+
+  --grass-200: hsl(129 37% 75%);
+  --grass-400: hsl(130 37% 51%);
+  --grass-600: hsl(130 36% 25%);
+
+  --olive-200: hsl(75 50% 74%);
+  --olive-400: hsl(76 53% 49%);
+  --olive-600: hsl(76 53% 24%);
+
+  --desert-200: hsl(21 75% 75%);
+  --desert-400: hsl(22 75% 50%);
+  --desert-600: hsl(22 73% 25%);
+
+  --stone-200: hsl(212 33% 77%);
+  --stone-400: hsl(212 33% 54%);
+  --stone-600: hsl(212 28% 27%);
+
+  --aqua-200: hsl(170 72% 72%);
+  --aqua-400: hsl(169 91% 44%);
+  --aqua-600: hsl(169 91% 22%);
+
+  /* Brand colors: */
+  --new-purple-100: hsl(263 77% 90%);
+  --new-purple-200: hsl(263 79% 80%);
+  --new-purple-300: hsl(263 79% 70%);
+  --new-purple-400: hsl(263 79% 60%);
+  --new-purple-500: hsl(263 79% 60%);
+  --new-purple-600: hsl(262 53% 30%);
+  --new-purple-700: hsl(263 53% 15%);
+
+  --new-mag-100: hsl(323 74% 90%);
+  --new-mag-200: hsl(324 75% 79%);
+  --new-mag-300: hsl(324 76% 69%);
+  --new-mag-400: hsl(323 76% 59%);
+  --new-mag-500: hsl(323 53% 44%);
+  --new-mag-600: hsl(323 53% 29%);
+  --new-mag-700: hsl(322 54% 15%);
+
+  --new-teal-100: hsl(187 71% 86%);
+  --new-teal-200: hsl(187 71% 73%);
+  --new-teal-300: hsl(187 71% 60%);
+  --new-teal-400: hsl(187 82% 47%);
+  --new-teal-500: hsl(187 82% 35%);
+  --new-teal-600: hsl(187 82% 23%);
+  --new-teal-700: hsl(187 83% 12%);
+
+  --new-clay-100: hsl(29 100% 92%);
+  --new-clay-200: hsl(29 100% 85%);
+  --new-clay-300: hsl(29 100% 77%);
+  --new-clay-400: hsl(29 100% 70%);
+  --new-clay-500: hsl(29 48% 52%);
+  --new-clay-600: hsl(30 44% 35%);
+  --new-clay-700: hsl(30 43% 17%);
+
+  --new-gray-100: hsl(214 13% 89%);
+  --new-gray-200: hsl(219 13% 79%);
+  --new-gray-300: hsl(218 14% 68%);
+  --new-gray-400: hsl(217 13% 58%);
+  --new-gray-500: hsl(215 10% 43%);
+  --new-gray-600: hsl(216 10% 29%);
+  --new-gray-700: hsl(214 10% 14%);
+
+  /* Status colors mapped to design system */
+}
+
+/* Font family for all text */
+*,
+*::before,
+*::after {
+  font-family: 'Roboto', sans-serif;
+}
+
+body,
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Preserve Font Awesome icons */
+.fa,
+.fas,
+.far,
+.fal,
+.fab,
+[class*='fa-'],
+[class*='fa-']::before,
+[class*='fa-']::after,
+.side-nav__icon,
+.side-nav__icon::before,
+.side-nav__icon::after {
+  font-family:
+    'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome', sans-serif;
+  font-weight: 900;
+  color: var(--neutral-800);
+}
+
+/*Title font family*/
+
+.widget__title {
+  font-family: 'Roboto', sans-serif;
+  color: var(--neutral-800);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.pane__title-text {
+  font-family: 'Roboto', sans-serif;
+  color: var(--neutral-800);
+}
+
+/* Status toggle items - y-label with status classes */
+.y-label.y-label_status_failed,
+.y-label[data-status='failed'] {
+  background-color: var(--destructive);
+  color: var(--neutral-0);
+}
+
+.y-label.y-label_status_passed,
+.y-label[data-status='passed'] {
+  background-color: var(--success-400);
+  color: var(--neutral-0);
+}
+
+.y-label.y-label_status_broken,
+.y-label[data-status='broken'] {
+  background-color: var(--warning-400);
+  color: var(--neutral-0);
+}
+
+.y-label.y-label_status_skipped,
+.y-label[data-status='skipped'] {
+  background-color: var(--neutral-400);
+  color: var(--neutral-0);
+}
+
+.y-label.y-label_status_unknown,
+.y-label[data-status='unknown'] {
+  background-color: var(--primary-200);
+  color: var(--neutral-0);
+}
+
+/* Chart Legend Icons - Using Allure's specific classes */
+.chart__legend-icon_status_passed {
+  background-color: var(--success-600);
+}
+
+.chart__legend-icon_status_failed {
+  background-color: var(--destructive);
+}
+
+.chart__legend-icon_status_broken {
+  background-color: var(--warning-400);
+}
+
+.chart__legend-icon_status_skipped {
+  background-color: var(--neutral-400);
+}
+
+.chart__legend-icon.chart__legend-icon_status_unknown {
+  background-color: var(--primary-200);
+}
+
+/* Chart Legend Rows with data-status attribute */
+.chart__legend-row[data-status='passed'] .chart__legend-icon {
+  background-color: var(--success-600);
+}
+
+.chart__legend-row[data-status='failed'] .chart__legend-icon {
+  background-color: var(--determinal-400);
+}
+
+.chart__legend-row[data-status='broken'] .chart__legend-icon {
+  background-color: var(--warning-400);
+}
+
+.chart__legend-row[data-status='skipped'] .chart__legend-icon {
+  background-color: var(--neutral-400);
+}
+
+.chart__legend-row[data-status='unknown'] .chart__legend-icon {
+  background-color: var(--primary-200);
+}
+
+/* Status badges */
+.status-badge.passed,
+.status-badge__text.passed,
+.test-status.passed {
+  background-color: var(--success-400);
+  color: var(--neutral-0);
+}
+
+.status-badge.failed,
+.status-badge__text.failed,
+.test-status.failed {
+  background-color: var(--determinal-400);
+  color: var(--neutral-0);
+}
+
+.status-badge.broken,
+.status-badge__text.broken,
+.test-status.broken {
+  background-color: var(--warning-400);
+  color: var(--neutral-0);
+}
+
+.status-badge.skipped,
+.status-badge__text.skipped,
+.test-status.skipped {
+  background-color: var(--neutral-400);
+  color: var(--neutral-0);
+}
+
+.status-badge.unknown,
+.status-badge__text.unknown,
+.test-status.unknown {
+  background-color: var(--primary-200);
+  color: var(--neutral-0);
+}
+
+/* Chart colors - for SVG charts */
+.chart-legend__item.passed,
+.chart__item.passed,
+.chart__item[data-status='passed'] {
+  fill: var(--success-400);
+  color: var(--success-400);
+}
+
+.chart-legend__item.failed,
+.chart__item.failed,
+.chart__item[data-status='failed'] {
+  fill: var(--determinal-400);
+  color: var(--determinal-400);
+}
+
+.chart-legend__item.broken,
+.chart__item.broken,
+.chart__item[data-status='broken'] {
+  fill: var(--warning-400);
+  color: var(--warning-400);
+}
+
+.chart-legend__item.skipped,
+.chart__item.skipped,
+.chart__item[data-status='skipped'] {
+  fill: var(--neutral-400);
+  color: var(--neutral-400);
+}
+
+.chart-legend__item.unknown,
+.chart__item.unknown,
+.chart__item[data-status='unknown'] {
+  fill: var(--primary-200);
+  color: var(--primary-200);
+}
+
+/* Progress bars */
+.progress-bar.passed {
+  background-color: var(--success-400);
+}
+
+.progress-bar.failed {
+  background-color: var(--determinal-400);
+}
+
+.progress-bar.broken {
+  background-color: var(--warning-400);
+}
+
+.progress-bar.skipped {
+  background-color: var(--neutral-400);
+}
+
+/*Chart bars colors*/
+.chart__bar.chart__fill_status_passed {
+  fill: var(--success-400);
+}
+
+.chart__bar.chart__fill_status_failed {
+  fill: var(--determinal-400);
+}
+
+.chart__bar.chart__fill_status_broken {
+  fill: var(--warning-400);
+}
+
+.chart__bar.chart__fill_status_skipped {
+  fill: var(--neutral-400);
+}
+
+.chart__bar.chart__fill_status_unknown {
+  fill: var(--primary-200);
+}
+
+/* Timeline colors */
+.timeline__item.passed {
+  border-left-color: var(--success-400);
+}
+
+.timeline__item.failed {
+  border-left-color: var(--determinal-400);
+}
+
+.timeline__item.broken {
+  border-left-color: var(--warning-400);
+}
+
+.timeline__item.skipped {
+  border-left-color: var(--neutral-400);
+}
+
+.timeline__item.unknown {
+  border-left-color: var(--primary-200);
+}
+
+/* Side navigation */
+
+.side-nav {
+  background-color: var(--neutral-300);
+}
+
+.side-nav__brand {
+  font-size: 0;
+}
+
+.side-nav__head {
+  border-bottom: 1px solid var(--neutral-400);
+}
+
+.side-nav__brand::after {
+  content: 'Adv-UI-Reports';
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0 1rem;
+  color: var(--neutral-800);
+}
+
+.side-nav.side-nav_collapsed .side-nav__brand::after {
+  display: none;
+}
+
+.side-nav__collapse_active,
+.side-nav__link_active {
+  border-right: 4px solid var(--primary-500);
+  color: var(--neutral-0);
+  background: var(--neutral-200);
+}
+
+.side-nav__brand-text {
+  color: var(--neutral-800);
+  content: 'Advertising UI Reports';
+  display: none;
+}
+
+/* Side navigation text */
+.side-nav__text {
+  color: var(--neutral-800);
+}

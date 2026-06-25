@@ -1,0 +1,6 @@
+# CODEOWNERS - Approval rules for advertising team
+# Requires approval from team leads and platform team for all PRs
+# Global rule: All files require approval from the team leads and platform team
+* @Purplelab-Inc/adv-leads @Purplelab-Inc/platform-team
+# Protect the CODEOWNERS file itself
+.github/CODEOWNERS @Purplelab-Inc/adv-leads @Purplelab-Inc/platform-team

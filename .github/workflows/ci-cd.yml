@@ -1,0 +1,47 @@
+name: CI/CD Pipeline - "Deployments"
+
+# Trigger definition: when the pipeline executes
+on:
+  pull_request: # PRs targeting
+    branches:
+      - main
+      - develop
+  workflow_dispatch: # Allows manual execution from GitHub UI
+
+# Global environment variables available for all jobs
+env:
+  PYTHON_VERSION: '3.8'
+
+jobs:
+  # JOB 0: Github Structure
+  github-structure:
+    name: Github Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code with full history (equivalent to clone: depth: full)
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history needed for pre-commit comparisons
+
+      # Shows complete directory structure for path validation
+      - name: Display Repository Structure
+        run: |
+          echo "🗂️ Repository Structure After Checkout:"
+          echo "📁 Working Directory: $(pwd)"
+          echo "📁 Full Path: ${{ github.workspace }}"
+          echo ""
+          echo "🌳 Directory Tree:"
+          tree . || ls -la
+          echo ""
+          echo "📋 Detailed Structure:"
+          find . -type f -name "*.py" -o -name "*.json" -o -name "*.yml" -o -name "*.yaml" | head -20
+
+  # JOB 2: SONAR SCAN
+  sonar-security-scan:
+    name: Security Scan with SONAR
+    uses: ./.github/workflows/sonar.yml
+    with:
+      log_level: 'DEBUG'
+    secrets: inherit

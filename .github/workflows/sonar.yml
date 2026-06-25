@@ -1,0 +1,50 @@
+name: Sonar Scan
+
+on:
+  workflow_call:
+    inputs:
+      log_level:
+        description: 'Log level for SONAR'
+        required: false
+        type: string
+        default: 'INFO'
+    outputs:
+      scan_result:
+        description: 'Result of SONAR scan'
+        value: ${{ jobs.sonar-analysis.outputs.result }}
+  workflow_dispatch: # Allows manual execution from GitHub UI
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cache SonarQube
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: |
+            ${{ runner.os }}-sonar
+
+      - name: Extract repo name
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_HOST_URL: https://sonarcloud.io
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=Purplelab-Inc_${{ env.REPO_NAME }}
+            -Dsonar.organization=${{ vars.SONAR_ORG_NAME }}
+            -Dsonar.projectName=${{ env.REPO_NAME }}
+            -Dsonar.sources=.
+            ${{ github.event_name == 'pull_request' && format('-Dsonar.pullrequest.key={0} -Dsonar.pullrequest.branch={1} -Dsonar.pullrequest.base={2}', github.event.pull_request.number, github.head_ref, github.base_ref) || '' }}
+
+      - name: Set output
+        run: echo "result=success" >> $GITHUB_OUTPUT
