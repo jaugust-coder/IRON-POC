@@ -378,130 +378,106 @@ function renderStepContent() {
 }
 
 function renderToolStep() {
-  return `
-    <div class="space-y-4">
-      <div><h2 class="text-xl font-bold text-neutral-900">Select an Analysis Tool</h2>
-      <p class="text-sm text-neutral-500">Choose the type of analysis you'd like to run.</p></div>
-      <div class="grid gap-3">
-        ${TOOLS.map(t => `
-          <button onclick="${t.disabled ? '' : `selectTool('${t.id}')`}" ${t.disabled ? 'disabled' : ''}
-            class="group flex items-start gap-4 rounded-xl border p-5 text-left transition
-            ${t.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50' : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-md'}">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${t.id === 'market-landscape' ? 'bg-brand-100' : 'bg-neutral-100'}">
-              ${t.id === 'market-landscape' ? chartSvg : lockSvg}
-            </div>
-            <div>
-              <p class="text-base font-semibold text-neutral-900 group-hover:text-brand-600">${t.name}</p>
-              <p class="text-sm text-neutral-500">${t.desc}</p>
-              ${t.disabled ? '<span class="mt-1 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
-            </div>
-          </button>
-        `).join('')}
-      </div>
-    </div>`;
+  let html = '<div class="space-y-4"><div><h2 class="text-xl font-bold text-neutral-900">Select an Analysis Tool</h2><p class="text-sm text-neutral-500">Choose the type of analysis you\'d like to run.</p></div><div class="grid gap-3">';
+  TOOLS.forEach(function(t) {
+    var cls = t.disabled
+      ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+      : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-md';
+    var iconBg = t.id === 'market-landscape' ? 'bg-brand-100' : 'bg-neutral-100';
+    var icon = t.id === 'market-landscape' ? chartSvg : lockSvg;
+    var click = t.disabled ? '' : 'onclick="selectTool(\'' + t.id + '\')"';
+    var dis = t.disabled ? 'disabled' : '';
+    var soon = t.disabled ? '<span class="mt-1 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : '';
+    html += '<button ' + click + ' ' + dis + ' class="group flex items-start gap-4 rounded-xl border p-5 text-left transition ' + cls + '">'
+      + '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ' + iconBg + '">' + icon + '</div>'
+      + '<div><p class="text-base font-semibold text-neutral-900 group-hover:text-brand-600">' + t.name + '</p>'
+      + '<p class="text-sm text-neutral-500">' + t.desc + '</p>' + soon + '</div></button>';
+  });
+  html += '</div></div>';
+  return html;
 }
 
 function renderTAStep() {
-  return `
-    <div class="space-y-4">
-      <div><h2 class="text-xl font-bold text-neutral-900">Select Therapeutic Area</h2>
-      <p class="text-sm text-neutral-500">Choose the indication to analyze.</p></div>
-      <div class="grid grid-cols-2 gap-3">
-        ${TAS.map(t => `
-          <button onclick="${t.disabled ? '' : `selectTA('${t.id}')`}" ${t.disabled ? 'disabled' : ''}
-            class="rounded-xl border p-4 text-left transition
-            ${t.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
-              : state.ta === t.id ? 'border-brand-500 bg-brand-50 shadow-sm'
-              : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm'}">
-            <p class="text-base font-semibold text-neutral-900">${t.name}</p>
-            <p class="text-xs text-neutral-500">${t.count} patients</p>
-            ${t.disabled ? '<span class="mt-1 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
-          </button>
-        `).join('')}
-      </div>
-    </div>`;
+  var html = '<div class="space-y-4"><div><h2 class="text-xl font-bold text-neutral-900">Select Therapeutic Area</h2><p class="text-sm text-neutral-500">Choose the indication to analyze.</p></div><div class="grid grid-cols-2 gap-3">';
+  TAS.forEach(function(t) {
+    var cls = t.disabled
+      ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+      : state.ta === t.id ? 'border-brand-500 bg-brand-50 shadow-sm'
+      : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm';
+    var click = t.disabled ? '' : 'onclick="selectTA(\'' + t.id + '\')"';
+    var dis = t.disabled ? 'disabled' : '';
+    var soon = t.disabled ? '<span class="mt-1 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : '';
+    html += '<button ' + click + ' ' + dis + ' class="rounded-xl border p-4 text-left transition ' + cls + '">'
+      + '<p class="text-base font-semibold text-neutral-900">' + t.name + '</p>'
+      + '<p class="text-xs text-neutral-500">' + t.count + ' patients</p>' + soon + '</button>';
+  });
+  html += '</div></div>';
+  return html;
 }
 
 function renderDrugStep() {
-  return `
-    <div class="space-y-4">
-      <div><h2 class="text-xl font-bold text-neutral-900">Select Drug(s)</h2>
-      <p class="text-sm text-neutral-500">Choose one or more drugs to analyze within the selected therapeutic area.</p></div>
-      <div class="grid gap-3">
-        ${DRUGS.map(d => {
-          const sel = state.drugs.includes(d.id);
-          return `
-          <button onclick="${d.disabled ? '' : `toggleDrug('${d.id}')`}" ${d.disabled ? 'disabled' : ''}
-            class="flex items-center gap-4 rounded-xl border p-4 text-left transition
-            ${d.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
-              : sel ? 'border-brand-500 bg-brand-50 shadow-sm'
-              : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm'}">
-            <div class="flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 ${sel ? 'border-brand-500 bg-brand-500' : 'border-neutral-300'}">
-              ${sel ? checkSvg : ''}
-            </div>
-            <div class="min-w-0 flex-1">
-              <p class="text-base font-semibold text-neutral-900">${d.name}</p>
-              <p class="text-xs text-neutral-500">${d.generic} · ${d.mfr}</p>
-            </div>
-            ${d.disabled ? '<span class="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
-          </button>`;
-        }).join('')}
-      </div>
-    </div>`;
+  var html = '<div class="space-y-4"><div><h2 class="text-xl font-bold text-neutral-900">Select Drug(s)</h2><p class="text-sm text-neutral-500">Choose one or more drugs to analyze within the selected therapeutic area.</p></div><div class="grid gap-3">';
+  DRUGS.forEach(function(d) {
+    var sel = state.drugs.includes(d.id);
+    var cls = d.disabled
+      ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+      : sel ? 'border-brand-500 bg-brand-50 shadow-sm'
+      : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm';
+    var click = d.disabled ? '' : 'onclick="toggleDrug(\'' + d.id + '\')"';
+    var dis = d.disabled ? 'disabled' : '';
+    var checkboxCls = sel ? 'border-brand-500 bg-brand-500' : 'border-neutral-300';
+    var checkMark = sel ? checkSvg : '';
+    var soon = d.disabled ? '<span class="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : '';
+    html += '<button ' + click + ' ' + dis + ' class="flex items-center gap-4 rounded-xl border p-4 text-left transition ' + cls + '">'
+      + '<div class="flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 ' + checkboxCls + '">' + checkMark + '</div>'
+      + '<div class="min-w-0 flex-1"><p class="text-base font-semibold text-neutral-900">' + d.name + '</p>'
+      + '<p class="text-xs text-neutral-500">' + d.generic + ' · ' + d.mfr + '</p></div>' + soon + '</button>';
+  });
+  html += '</div></div>';
+  return html;
 }
 
 function renderTimeframeStep() {
-  return `
-    <div class="space-y-4">
-      <div><h2 class="text-xl font-bold text-neutral-900">Select Timeframe</h2>
-      <p class="text-sm text-neutral-500">Choose the analysis period.</p></div>
-      <div class="grid gap-3">
-        ${TIMEFRAMES.map(t => `
-          <button onclick="${t.disabled ? '' : `selectTimeframe('${t.id}')`}" ${t.disabled ? 'disabled' : ''}
-            class="flex items-center gap-4 rounded-xl border p-4 text-left transition
-            ${t.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
-              : state.timeframe === t.id ? 'border-brand-500 bg-brand-50 shadow-sm'
-              : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm'}">
-            <span class="${state.timeframe === t.id ? 'text-brand-500' : 'text-neutral-400'}">${calSvg}</span>
-            <div>
-              <p class="text-base font-semibold text-neutral-900">${t.label}</p>
-              <p class="text-xs text-neutral-500">${t.range}</p>
-            </div>
-            ${t.disabled ? '<span class="ml-auto rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
-          </button>
-        `).join('')}
-      </div>
-    </div>`;
+  var html = '<div class="space-y-4"><div><h2 class="text-xl font-bold text-neutral-900">Select Timeframe</h2><p class="text-sm text-neutral-500">Choose the analysis period.</p></div><div class="grid gap-3">';
+  TIMEFRAMES.forEach(function(t) {
+    var cls = t.disabled
+      ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+      : state.timeframe === t.id ? 'border-brand-500 bg-brand-50 shadow-sm'
+      : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm';
+    var click = t.disabled ? '' : 'onclick="selectTimeframe(\'' + t.id + '\')"';
+    var dis = t.disabled ? 'disabled' : '';
+    var iconColor = state.timeframe === t.id ? 'text-brand-500' : 'text-neutral-400';
+    var soon = t.disabled ? '<span class="ml-auto rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : '';
+    html += '<button ' + click + ' ' + dis + ' class="flex items-center gap-4 rounded-xl border p-4 text-left transition ' + cls + '">'
+      + '<span class="' + iconColor + '">' + calSvg + '</span>'
+      + '<div><p class="text-base font-semibold text-neutral-900">' + t.label + '</p>'
+      + '<p class="text-xs text-neutral-500">' + t.range + '</p></div>' + soon + '</button>';
+  });
+  html += '</div></div>';
+  return html;
 }
 
 function renderSummaryStep() {
-  const tool = TOOLS.find(t => t.id === state.tool);
-  const ta = TAS.find(t => t.id === state.ta);
-  const drugs = DRUGS.filter(d => state.drugs.includes(d.id));
-  const tf = TIMEFRAMES.find(t => t.id === state.timeframe);
-  const rows = [
-    { label: 'Analysis', value: tool?.name, icon: chartSvg.replace('h-5 w-5', 'h-4 w-4') },
-    { label: 'Therapeutic Area', value: ta?.name, icon: targetSvg },
-    { label: 'Drug(s)', value: drugs.map(d => d.name).join(', '), icon: searchSvg },
-    { label: 'Timeframe', value: `${tf?.label} (${tf?.range})`, icon: calSmSvg },
+  var tool = TOOLS.find(function(t) { return t.id === state.tool; });
+  var ta = TAS.find(function(t) { return t.id === state.ta; });
+  var drugNames = DRUGS.filter(function(d) { return state.drugs.includes(d.id); }).map(function(d) { return d.name; }).join(', ');
+  var tf = TIMEFRAMES.find(function(t) { return t.id === state.timeframe; });
+  var rows = [
+    { label: 'Analysis', value: tool ? tool.name : '', icon: chartSvg.replace('h-5 w-5', 'h-4 w-4') },
+    { label: 'Therapeutic Area', value: ta ? ta.name : '', icon: targetSvg },
+    { label: 'Drug(s)', value: drugNames, icon: searchSvg },
+    { label: 'Timeframe', value: tf ? tf.label + ' (' + tf.range + ')' : '', icon: calSmSvg },
   ];
-  return `
-    <div class="space-y-4">
-      <div><h2 class="text-xl font-bold text-neutral-900">Confirm Your Selections</h2>
-      <p class="text-sm text-neutral-500">Review your analysis parameters before running.</p></div>
-      <div class="rounded-xl border border-neutral-200 bg-white">
-        ${rows.map((r, i) => `
-          <div class="flex items-center gap-3 px-5 py-3.5 ${i < rows.length - 1 ? 'border-b border-neutral-100' : ''}">
-            ${r.icon}
-            <span class="w-36 shrink-0 text-sm text-neutral-500">${r.label}</span>
-            <span class="text-sm font-medium text-neutral-900">${r.value}</span>
-          </div>
-        `).join('')}
-      </div>
-      <div class="rounded-lg border border-info-200 bg-info-50 p-3">
-        <p class="text-xs text-info-700">The Patient & Market Navigator will query the HealthNexus data warehouse and generate AI-powered insights. This typically takes 1–2 minutes.</p>
-      </div>
-    </div>`;
+  var html = '<div class="space-y-4"><div><h2 class="text-xl font-bold text-neutral-900">Confirm Your Selections</h2><p class="text-sm text-neutral-500">Review your analysis parameters before running.</p></div><div class="rounded-xl border border-neutral-200 bg-white">';
+  rows.forEach(function(r, i) {
+    var border = i < rows.length - 1 ? 'border-b border-neutral-100' : '';
+    html += '<div class="flex items-center gap-3 px-5 py-3.5 ' + border + '">'
+      + r.icon
+      + '<span class="w-36 shrink-0 text-sm text-neutral-500">' + r.label + '</span>'
+      + '<span class="text-sm font-medium text-neutral-900">' + r.value + '</span></div>';
+  });
+  html += '</div><div class="rounded-lg border border-info-200 bg-info-50 p-3"><p class="text-xs text-info-700">The Patient &amp; Market Navigator will query the HealthNexus data warehouse and generate AI-powered insights. This typically takes 1–2 minutes.</p></div></div>';
+  return html;
 }
 
 function renderNav() {
