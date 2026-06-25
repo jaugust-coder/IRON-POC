@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IRON Q1 POC — Dupixent in COPD</title>
+  <title>IRON POC — Market Landscape Wizard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwindcss.config = {
@@ -14,6 +14,7 @@
             neutral: { 50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4', 400: '#a3a3a3', 500: '#737373', 600: '#525252', 700: '#404040', 800: '#262626', 900: '#171717', 1000: '#0a0a0a' },
             success: { 50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
             warning: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
+            info: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
           }
         }
       }
@@ -22,6 +23,10 @@
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f8fa; }
     .mono { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .animate-pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body class="min-h-screen bg-neutral-50">
@@ -37,230 +42,575 @@
     </div>
   </nav>
 
-  <!-- Main content -->
-  <main class="mx-auto max-w-[960px] space-y-6 px-6 py-8">
+  <main class="mx-auto max-w-[960px] px-6 py-8">
 
-    <!-- Page header -->
-    <div class="space-y-1">
+    <!-- Page header (always visible) -->
+    <div class="mb-8 space-y-1">
       <div class="flex items-center gap-2.5">
         <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500">
           <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
         </div>
-        <div>
-          <h1 class="text-2xl font-bold text-neutral-900">IRON</h1>
-        </div>
+        <h1 class="text-2xl font-bold text-neutral-900">IRON</h1>
       </div>
       <p class="text-sm text-neutral-500">AI-Powered Analytics for Pharma Commercial Teams</p>
     </div>
 
-    <!-- User question bubble -->
-    <div class="flex justify-end">
-      <div class="max-w-[70%] rounded-2xl rounded-br-md bg-brand-500 px-5 py-3 text-[15px] text-white shadow-sm">
-        How large is the patient universe, and what share is currently treated?
+    <!-- ==================== WIZARD SECTION ==================== -->
+    <div id="wizard-section">
+
+      <!-- Step indicator -->
+      <div id="step-indicator" class="mb-8 flex items-center gap-2"></div>
+
+      <!-- Step content card -->
+      <div class="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+        <div id="step-content"></div>
+        <div id="step-nav" class="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4" style="display:none"></div>
       </div>
     </div>
 
-    <!-- Context tags -->
-    <div class="flex justify-end">
-      <div class="flex flex-wrap gap-2">
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
-          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          Dupixent
-        </span>
-        <span class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
-          COPD
-        </span>
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
-          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          Full Year 2025 (Jan 1 – Dec 31)
-        </span>
+    <!-- ==================== PROCESSING SECTION ==================== -->
+    <div id="processing-section" class="hidden">
+      <div class="flex flex-col items-center justify-center space-y-8 py-12 fade-in">
+        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-100">
+          <svg class="h-8 w-8 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
+        </div>
+        <div class="text-center">
+          <h2 class="text-xl font-bold text-neutral-900">Running Patient & Market Navigator</h2>
+          <p class="mt-1 text-sm text-neutral-500">Analyzing COPD · Dupixent · Full Year 2025</p>
+        </div>
+        <div class="w-full max-w-md">
+          <div class="h-2 overflow-hidden rounded-full bg-neutral-200">
+            <div id="progress-bar" class="h-full rounded-full bg-brand-500 transition-all duration-300 ease-out" style="width: 0%"></div>
+          </div>
+          <p id="progress-pct" class="mt-2 text-center text-xs text-neutral-500">0%</p>
+        </div>
+        <div id="processing-steps" class="w-full max-w-md space-y-2"></div>
       </div>
     </div>
 
-    <!-- AI Response -->
-    <div class="flex gap-3">
+    <!-- ==================== RESULTS SECTION ==================== -->
+    <div id="results-section" class="hidden space-y-6 fade-in">
 
-      <!-- AI Avatar -->
-      <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-100">
-        <svg class="h-5 w-5 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2zm-2 9a5 5 0 0 0-5 5v1a5 5 0 0 0 5 5h4a5 5 0 0 0 5-5v-1a5 5 0 0 0-5-5h-4zm1 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm5 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
+      <!-- User question bubble -->
+      <div class="flex justify-end">
+        <div class="max-w-[70%] rounded-2xl rounded-br-md bg-brand-500 px-5 py-3 text-[15px] text-white shadow-sm">
+          How large is the patient universe, and what share is currently treated?
+        </div>
       </div>
 
-      <!-- Response content -->
-      <div class="min-w-0 flex-1 space-y-5">
-
-        <!-- Status badge -->
-        <div class="flex items-center gap-3">
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-3 py-1 text-xs font-medium text-success-700">
-            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            Complete
+      <!-- Context tags -->
+      <div class="flex justify-end">
+        <div class="flex flex-wrap gap-2">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+            <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Dupixent
           </span>
-          <p class="text-xs text-neutral-500">Queried 2 tables · 30 rows · purplelab-dev.TMP_JOCE</p>
+          <span class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">COPD</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-600">
+            <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Full Year 2025 (Jan 1 – Dec 31)
+          </span>
         </div>
+      </div>
 
-        <!-- KPI Banner -->
-        <div class="grid grid-cols-5 gap-3">
-          <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
-            <p class="text-xs text-neutral-500">Total COPD Universe</p>
-            <p class="mt-1 text-xl font-bold text-neutral-900">23.4M</p>
-            <p class="mt-0.5 text-[11px] text-neutral-400">23,429,388 patients</p>
-          </div>
-          <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
-            <p class="text-xs text-neutral-500">On Dupixent</p>
-            <p class="mt-1 text-xl font-bold text-neutral-900">136,066</p>
-            <p class="mt-0.5 text-[11px] text-neutral-400">Currently treated</p>
-          </div>
-          <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
-            <p class="text-xs text-neutral-500">Untreated Ratio</p>
-            <p class="mt-1 text-xl font-bold text-neutral-900">99.4%</p>
-            <p class="mt-0.5 text-[11px] text-neutral-400">Not on Dupixent</p>
-          </div>
-          <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
-            <p class="text-xs text-neutral-500">Dupixent Penetration</p>
-            <p class="mt-1 text-xl font-bold text-neutral-900">0.58%</p>
-            <p class="mt-0.5 text-[11px] text-neutral-400">Among all COPD patients</p>
-          </div>
-          <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
-            <p class="text-xs text-neutral-500">Eligible Penetration</p>
-            <p class="mt-1 text-xl font-bold text-neutral-900">~110%</p>
-            <p class="mt-0.5 text-[11px] text-neutral-400">vs. Step 3B pool (123,592)</p>
-          </div>
+      <!-- AI Response -->
+      <div class="flex gap-3">
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-100">
+          <svg class="h-5 w-5 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>
         </div>
+        <div class="min-w-0 flex-1 space-y-5">
 
-        <!-- Insight Section -->
-        <div class="space-y-4">
-          <h3 class="text-base font-semibold text-neutral-900">Insight</h3>
-          <p class="text-[15px] leading-relaxed text-neutral-700">
-            The COPD patient universe captured in HealthNexus totals approximately 23.4 million patients over the most recent 12-month claims window. Within that universe, Dupixent has established a foothold of 136,066 treated patients, representing a penetration rate of just 0.58%. Over 99% of diagnosed COPD patients remain untreated with Dupixent, underscoring the very early stage of commercial uptake in this indication.
-          </p>
-          <p class="text-[15px] leading-relaxed text-neutral-700">
-            The eosinophil cohort analysis reveals important sub-population dynamics. Of the roughly 23.6 million eos-evaluated COPD patients, 191,922 meet an initial eosinophil threshold (Step 2A), and only 15,196 meet the most stringent biologic-eligible criteria at Step 3A (higher eos plus advanced therapy stepping). A broader eos-based eligibility definition captures 123,592 patients at Step 3B. The fact that 136,066 patients are currently on Dupixent — a figure that exceeds the narrow Step 3A pool but closely aligns with the broader Step 3B pool — suggests prescribing is already extending beyond the most restrictive label-aligned criteria into a wider eos-elevated population.
-          </p>
-          <p class="text-[15px] leading-relaxed text-neutral-700">
-            For the brand team, these numbers present a dual opportunity. First, even within the broadest biologic-eligible segment, penetration is essentially at parity (~110%), meaning there is still room to capture remaining eligible patients and deepen share. Second, the vast 23.4M universe represents a long-term expansion opportunity as clinical evidence, guideline updates, and payer coverage evolve. Near-term growth will likely come from converting the remaining biologic-eligible patients in the 123K–192K eos segments, while longer-term growth requires moving the eligibility frontier outward.
-          </p>
-        </div>
+          <!-- Status badge -->
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-3 py-1 text-xs font-medium text-success-700">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              Complete
+            </span>
+            <p class="text-xs text-neutral-500">Queried 2 tables · 30 rows · purplelab-dev.TMP_JOCE</p>
+          </div>
 
-        <!-- Watch Signals -->
-        <div class="space-y-3">
-          <h3 class="text-base font-semibold text-neutral-900">Watch Signals</h3>
-          <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
-            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-            <div>
-              <p class="text-sm font-semibold text-neutral-900">Eligibility Creep vs. Label Alignment</p>
-              <p class="mt-1 text-sm text-neutral-700">Current Dupixent-treated volume (136K) already surpasses the narrowest eos-defined eligible pool (15K), suggesting off-criteria prescribing. Monitor payer pushback and prior authorization denial rates.</p>
+          <!-- KPI Banner -->
+          <div class="grid grid-cols-5 gap-3">
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Total COPD Universe</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">23.4M</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">23,429,388 patients</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">On Dupixent</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">136,066</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">Currently treated</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Untreated Ratio</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">99.4%</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">Not on Dupixent</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Dupixent Penetration</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">0.58%</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">Among all COPD patients</p>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+              <p class="text-xs text-neutral-500">Eligible Penetration</p>
+              <p class="mt-1 text-xl font-bold text-neutral-900">~110%</p>
+              <p class="mt-0.5 text-[11px] text-neutral-400">vs. Step 3B pool (123,592)</p>
             </div>
           </div>
-          <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
-            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-            <div>
-              <p class="text-sm font-semibold text-neutral-900">Competitive Biologic Entry</p>
-              <p class="mt-1 text-sm text-neutral-700">With over 99% of the COPD universe untreated by any biologic and a sizable eos-elevated sub-population still available, this market is highly attractive to competitors. Monitor pipeline biologics (anti-IL-5, anti-TSLP) for launch timelines.</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- Engine Tables (collapsible) -->
-        <div class="rounded-lg border border-neutral-200 bg-neutral-50">
-          <button onclick="toggleTables()" class="flex w-full items-center justify-between px-4 py-3 text-left">
-            <div>
-              <p class="text-sm font-semibold text-neutral-700">Engine Query Results</p>
-              <p class="text-[11px] text-neutral-500">2 tables · 30 rows from purplelab-dev.TMP_JOCE</p>
-            </div>
-            <svg id="chevron" class="h-5 w-5 text-neutral-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-          </button>
-          <div id="tables-content" class="hidden border-t border-neutral-200 p-4 space-y-4">
-            <!-- Table 1 -->
-            <div>
-              <p class="mb-1 text-sm font-semibold text-neutral-800">P&MN Step Summary — Dupixent Y/N</p>
-              <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_STEP_SUM_COPD_Dupixent_YN · 12 rows (showing OPEN/CLOSED summary)</p>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                  <thead>
-                    <tr class="border-b border-neutral-200 text-left text-neutral-600">
-                      <th class="px-3 py-2 font-medium">Data Source</th>
-                      <th class="px-3 py-2 font-medium">Group</th>
-                      <th class="px-3 py-2 font-medium">Step</th>
-                      <th class="px-3 py-2 text-right font-medium">Patients</th>
-                      <th class="px-3 py-2 text-right font-medium">Claims</th>
-                      <th class="px-3 py-2 text-right font-medium">Encounters</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-neutral-800">
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,429,388</td><td class="px-3 py-2 text-right mono">197,697,278</td><td class="px-3 py-2 text-right mono">243,456,108</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 2A</td><td class="px-3 py-2 text-right mono">136,066</td><td class="px-3 py-2 text-right mono">1,606,881</td><td class="px-3 py-2 text-right mono">40,367</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,429,388</td><td class="px-3 py-2 text-right mono">197,697,278</td><td class="px-3 py-2 text-right mono">243,456,108</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 2B</td><td class="px-3 py-2 text-right mono">23,293,322</td><td class="px-3 py-2 text-right mono">195,515,139</td><td class="px-3 py-2 text-right mono">241,197,200</td></tr>
-                  </tbody>
-                </table>
+          <!-- Insight Section -->
+          <div class="space-y-4">
+            <h3 class="text-base font-semibold text-neutral-900">Insight</h3>
+            <p class="text-[15px] leading-relaxed text-neutral-700">The COPD patient universe captured in HealthNexus totals approximately 23.4 million patients over the most recent 12-month claims window. Within that universe, Dupixent has established a foothold of 136,066 treated patients, representing a penetration rate of just 0.58%. Over 99% of diagnosed COPD patients remain untreated with Dupixent, underscoring the very early stage of commercial uptake in this indication.</p>
+            <p class="text-[15px] leading-relaxed text-neutral-700">The eosinophil cohort analysis reveals important sub-population dynamics. Of the roughly 23.6 million eos-evaluated COPD patients, 191,922 meet an initial eosinophil threshold (Step 2A), and only 15,196 meet the most stringent biologic-eligible criteria at Step 3A. A broader eos-based eligibility definition captures 123,592 patients at Step 3B. The fact that 136,066 patients are currently on Dupixent — a figure that exceeds the narrow Step 3A pool but closely aligns with the broader Step 3B pool — suggests prescribing is already extending beyond the most restrictive label-aligned criteria.</p>
+            <p class="text-[15px] leading-relaxed text-neutral-700">For the brand team, these numbers present a dual opportunity. First, even within the broadest biologic-eligible segment, penetration is essentially at parity (~110%), meaning there is still room to capture remaining eligible patients. Second, the vast 23.4M universe represents a long-term expansion opportunity as clinical evidence, guideline updates, and payer coverage evolve.</p>
+          </div>
+
+          <!-- Watch Signals -->
+          <div class="space-y-3">
+            <h3 class="text-base font-semibold text-neutral-900">Watch Signals</h3>
+            <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+              <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <div>
+                <p class="text-sm font-semibold text-neutral-900">Eligibility Creep vs. Label Alignment</p>
+                <p class="mt-1 text-sm text-neutral-700">Current Dupixent-treated volume (136K) already surpasses the narrowest eos-defined eligible pool (15K), suggesting off-criteria prescribing. Monitor payer pushback and prior authorization denial rates.</p>
               </div>
             </div>
-            <!-- Table 2 -->
-            <div>
-              <p class="mb-1 text-sm font-semibold text-neutral-800">Eos Cohort Step Summary</p>
-              <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_STEP_SUM_COPD_EOSINO · 18 rows (showing OPEN/CLOSED summary)</p>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                  <thead>
-                    <tr class="border-b border-neutral-200 text-left text-neutral-600">
-                      <th class="px-3 py-2 font-medium">Data Source</th>
-                      <th class="px-3 py-2 font-medium">Group</th>
-                      <th class="px-3 py-2 font-medium">Step</th>
-                      <th class="px-3 py-2 text-right font-medium">Patients</th>
-                      <th class="px-3 py-2 text-right font-medium">Claims</th>
-                      <th class="px-3 py-2 text-right font-medium">Encounters</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-neutral-800">
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,627,105</td><td class="px-3 py-2 text-right mono">314,654,569</td><td class="px-3 py-2 text-right mono">244,113,208</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 2A</td><td class="px-3 py-2 text-right mono">191,922</td><td class="px-3 py-2 text-right mono">1,315,398</td><td class="px-3 py-2 text-right mono">799,502</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 3A</td><td class="px-3 py-2 text-right mono">15,196</td><td class="px-3 py-2 text-right mono">280,432</td><td class="px-3 py-2 text-right mono">6,281</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,627,105</td><td class="px-3 py-2 text-right mono">314,654,569</td><td class="px-3 py-2 text-right mono">244,113,208</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 2B</td><td class="px-3 py-2 text-right mono">23,435,183</td><td class="px-3 py-2 text-right mono">309,124,197</td><td class="px-3 py-2 text-right mono">240,835,096</td></tr>
-                    <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 3B</td><td class="px-3 py-2 text-right mono">123,592</td><td class="px-3 py-2 text-right mono">2,059,150</td><td class="px-3 py-2 text-right mono">34,595</td></tr>
-                  </tbody>
-                </table>
+            <div class="flex gap-3 rounded-lg border border-warning-200 bg-warning-50 p-4">
+              <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning-600" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <div>
+                <p class="text-sm font-semibold text-neutral-900">Competitive Biologic Entry</p>
+                <p class="mt-1 text-sm text-neutral-700">With over 99% of the COPD universe untreated by any biologic and a sizable eos-elevated sub-population still available, this market is highly attractive to competitors. Monitor pipeline biologics (anti-IL-5, anti-TSLP) for launch timelines.</p>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Follow-on Questions -->
-        <div class="space-y-3">
-          <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
-          <div class="space-y-2">
-            <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
-              <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q2</span>
-              <span class="flex-1 text-[15px] text-neutral-800">Which therapy steps have the highest unmet need?</span>
-              <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <!-- Engine Tables (collapsible) -->
+          <div class="rounded-lg border border-neutral-200 bg-neutral-50">
+            <button onclick="toggleTables()" class="flex w-full items-center justify-between px-4 py-3 text-left">
+              <div>
+                <p class="text-sm font-semibold text-neutral-700">Engine Query Results</p>
+                <p class="text-[11px] text-neutral-500">2 tables · 30 rows from purplelab-dev.TMP_JOCE</p>
+              </div>
+              <svg id="chevron" class="h-5 w-5 text-neutral-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
-              <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q3</span>
-              <span class="flex-1 text-[15px] text-neutral-800">What is the eosinophil distribution across the COPD universe?</span>
-              <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
-              <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q6</span>
-              <span class="flex-1 text-[15px] text-neutral-800">How does Dupixent switching compare to competitor biologics?</span>
-              <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+            <div id="tables-content" class="hidden border-t border-neutral-200 p-4 space-y-4">
+              <div>
+                <p class="mb-1 text-sm font-semibold text-neutral-800">P&MN Step Summary — Dupixent Y/N</p>
+                <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_STEP_SUM_COPD_Dupixent_YN · 12 rows</p>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Data Source</th><th class="px-3 py-2 font-medium">Group</th><th class="px-3 py-2 font-medium">Step</th><th class="px-3 py-2 text-right font-medium">Patients</th><th class="px-3 py-2 text-right font-medium">Claims</th><th class="px-3 py-2 text-right font-medium">Encounters</th></tr></thead>
+                    <tbody class="text-neutral-800">
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,429,388</td><td class="px-3 py-2 text-right mono">197,697,278</td><td class="px-3 py-2 text-right mono">243,456,108</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 2A</td><td class="px-3 py-2 text-right mono">136,066</td><td class="px-3 py-2 text-right mono">1,606,881</td><td class="px-3 py-2 text-right mono">40,367</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,429,388</td><td class="px-3 py-2 text-right mono">197,697,278</td><td class="px-3 py-2 text-right mono">243,456,108</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 2B</td><td class="px-3 py-2 text-right mono">23,293,322</td><td class="px-3 py-2 text-right mono">195,515,139</td><td class="px-3 py-2 text-right mono">241,197,200</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <p class="mb-1 text-sm font-semibold text-neutral-800">Eos Cohort Step Summary</p>
+                <p class="mb-2 text-[11px] text-neutral-500">IRON_POC_STEP_SUM_COPD_EOSINO · 18 rows</p>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead><tr class="border-b border-neutral-200 text-left text-neutral-600"><th class="px-3 py-2 font-medium">Data Source</th><th class="px-3 py-2 font-medium">Group</th><th class="px-3 py-2 font-medium">Step</th><th class="px-3 py-2 text-right font-medium">Patients</th><th class="px-3 py-2 text-right font-medium">Claims</th><th class="px-3 py-2 text-right font-medium">Encounters</th></tr></thead>
+                    <tbody class="text-neutral-800">
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,627,105</td><td class="px-3 py-2 text-right mono">314,654,569</td><td class="px-3 py-2 text-right mono">244,113,208</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 2A</td><td class="px-3 py-2 text-right mono">191,922</td><td class="px-3 py-2 text-right mono">1,315,398</td><td class="px-3 py-2 text-right mono">799,502</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT A</td><td class="px-3 py-2">STEP 3A</td><td class="px-3 py-2 text-right mono">15,196</td><td class="px-3 py-2 text-right mono">280,432</td><td class="px-3 py-2 text-right mono">6,281</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 1</td><td class="px-3 py-2 text-right mono">23,627,105</td><td class="px-3 py-2 text-right mono">314,654,569</td><td class="px-3 py-2 text-right mono">244,113,208</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 2B</td><td class="px-3 py-2 text-right mono">23,435,183</td><td class="px-3 py-2 text-right mono">309,124,197</td><td class="px-3 py-2 text-right mono">240,835,096</td></tr>
+                      <tr class="border-b border-neutral-100"><td class="px-3 py-2">OPEN/CLOSED</td><td class="px-3 py-2">COHORT B</td><td class="px-3 py-2">STEP 3B</td><td class="px-3 py-2 text-right mono">123,592</td><td class="px-3 py-2 text-right mono">2,059,150</td><td class="px-3 py-2 text-right mono">34,595</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- Follow-on Questions -->
+          <div class="space-y-3">
+            <h3 class="text-base font-semibold text-neutral-900">Follow-on Questions</h3>
+            <div class="space-y-2">
+              <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q2</span>
+                <span class="flex-1 text-[15px] text-neutral-800">Which therapy steps have the highest unmet need?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q3</span>
+                <span class="flex-1 text-[15px] text-neutral-800">What is the eosinophil distribution across the COPD universe?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button class="flex w-full items-center gap-3 rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-left transition-colors hover:border-brand-400 hover:bg-brand-100">
+                <span class="shrink-0 rounded-md bg-brand-500 px-2 py-0.5 text-xs font-semibold text-white">Q6</span>
+                <span class="flex-1 text-[15px] text-neutral-800">How does Dupixent switching compare to competitor biologics?</span>
+                <svg class="h-4 w-4 shrink-0 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <p class="text-xs text-neutral-400">Generated just now · IRON Q1 POC · purplelab-dev</p>
         </div>
-
-        <!-- Timestamp -->
-        <p class="text-xs text-neutral-400">Generated just now · IRON Q1 POC · purplelab-dev</p>
-
       </div>
     </div>
 
   </main>
 
-  <script>
-    function toggleTables() {
-      const content = document.getElementById('tables-content');
-      const chevron = document.getElementById('chevron');
-      content.classList.toggle('hidden');
-      chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
-    }
-  </script>
+<script>
+// ======================== WIZARD STATE ========================
+const state = {
+  step: 'tool',  // tool | ta | drug | timeframe | summary | processing | results
+  tool: null,
+  ta: null,
+  drugs: [],
+  timeframe: null,
+};
+
+const STEPS = [
+  { key: 'tool', label: 'Tool' },
+  { key: 'ta', label: 'Therapeutic Area' },
+  { key: 'drug', label: 'Drug' },
+  { key: 'timeframe', label: 'Timeframe' },
+  { key: 'summary', label: 'Confirm' },
+];
+
+const TOOLS = [
+  { id: 'market-landscape', name: 'Market Landscape', desc: 'Patient & Market Navigator — size the patient universe, segment by treatment step, and benchmark competitive positioning.' },
+  { id: 'prescriber-intel', name: 'Prescriber Intelligence', desc: 'Identify top prescribers, referral networks, and territory-level opportunity.', disabled: true },
+  { id: 'payer-access', name: 'Payer & Access', desc: 'Coverage landscape, formulary status, and prior-auth friction analysis.', disabled: true },
+];
+
+const TAS = [
+  { id: 'copd', name: 'COPD', count: '23.4M' },
+  { id: 'asthma', name: 'Asthma', count: '27.1M', disabled: true },
+  { id: 'atopic-derm', name: 'Atopic Dermatitis', count: '9.8M', disabled: true },
+  { id: 'crswnp', name: 'CRSwNP', count: '1.2M', disabled: true },
+];
+
+const DRUGS = [
+  { id: 'dupixent', name: 'Dupixent', generic: 'dupilumab', mfr: 'Sanofi / Regeneron' },
+  { id: 'tezspire', name: 'Tezspire', generic: 'tezepelumab', mfr: 'AstraZeneca / Amgen', disabled: true },
+  { id: 'fasenra', name: 'Fasenra', generic: 'benralizumab', mfr: 'AstraZeneca', disabled: true },
+  { id: 'nucala', name: 'Nucala', generic: 'mepolizumab', mfr: 'GSK', disabled: true },
+];
+
+const TIMEFRAMES = [
+  { id: '2025', label: 'Full Year 2025', range: 'Jan 1 – Dec 31, 2025' },
+  { id: '2025-h1', label: 'H1 2025', range: 'Jan 1 – Jun 30, 2025', disabled: true },
+  { id: '2024', label: 'Full Year 2024', range: 'Jan 1 – Dec 31, 2024', disabled: true },
+];
+
+const PROC_STEPS = [
+  { label: 'Connecting to HealthNexus data warehouse', dur: 1500 },
+  { label: 'Querying COPD patient universe (23.4M records)', dur: 2000 },
+  { label: 'Segmenting by Dupixent treatment status', dur: 1800 },
+  { label: 'Building eosinophil cohort analysis', dur: 2000 },
+  { label: 'Calculating penetration metrics', dur: 1200 },
+  { label: 'Generating AI-powered insights', dur: 2000 },
+];
+
+// ======================== ICONS (SVG) ========================
+const checkSvg = `<svg class="h-3.5 w-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>`;
+const chartSvg = `<svg class="h-5 w-5 text-brand-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 16 4-8 4 4 4-6"/></svg>`;
+const lockSvg = `<svg class="h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
+const calSvg = `<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`;
+const arrowLeft = `<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>`;
+const arrowRight = `<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+const aiSvg = `<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2z"/></svg>`;
+const checkCircle = `<svg class="h-5 w-5 text-success-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`;
+const targetSvg = `<svg class="h-4 w-4 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+const searchSvg = `<svg class="h-4 w-4 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`;
+const calSmSvg = `<svg class="h-4 w-4 text-brand-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`;
+
+// ======================== RENDER ========================
+function render() {
+  const wizardEl = document.getElementById('wizard-section');
+  const procEl = document.getElementById('processing-section');
+  const resultsEl = document.getElementById('results-section');
+
+  wizardEl.classList.add('hidden');
+  procEl.classList.add('hidden');
+  resultsEl.classList.add('hidden');
+
+  if (state.step === 'processing') {
+    procEl.classList.remove('hidden');
+    startProcessing();
+    return;
+  }
+  if (state.step === 'results') {
+    resultsEl.classList.remove('hidden');
+    return;
+  }
+
+  wizardEl.classList.remove('hidden');
+  renderStepIndicator();
+  renderStepContent();
+  renderNav();
+}
+
+function renderStepIndicator() {
+  const el = document.getElementById('step-indicator');
+  const currentIdx = STEPS.findIndex(s => s.key === state.step);
+  el.innerHTML = STEPS.map((s, i) => {
+    const dot = i < currentIdx
+      ? `<div class="flex h-7 w-7 items-center justify-center rounded-full bg-brand-500">${checkSvg}</div>`
+      : i === currentIdx
+        ? `<div class="flex h-7 w-7 items-center justify-center rounded-full border-2 border-brand-500 text-xs font-semibold text-brand-500">${i + 1}</div>`
+        : `<div class="flex h-7 w-7 items-center justify-center rounded-full border border-neutral-300 text-xs text-neutral-400">${i + 1}</div>`;
+    const label = `<span class="hidden sm:inline text-xs ${i === currentIdx ? 'font-semibold text-neutral-900' : 'text-neutral-500'}">${s.label}</span>`;
+    const sep = i < STEPS.length - 1 ? '<div class="mx-1 h-px w-6 bg-neutral-300"></div>' : '';
+    return `<div class="flex items-center gap-2">${dot}${label}${sep}</div>`;
+  }).join('');
+}
+
+function renderStepContent() {
+  const el = document.getElementById('step-content');
+  el.innerHTML = '<div class="fade-in">' + {
+    tool: renderToolStep,
+    ta: renderTAStep,
+    drug: renderDrugStep,
+    timeframe: renderTimeframeStep,
+    summary: renderSummaryStep,
+  }[state.step]() + '</div>';
+}
+
+function renderToolStep() {
+  return `
+    <div class="space-y-4">
+      <div><h2 class="text-xl font-bold text-neutral-900">Select an Analysis Tool</h2>
+      <p class="text-sm text-neutral-500">Choose the type of analysis you'd like to run.</p></div>
+      <div class="grid gap-3">
+        ${TOOLS.map(t => `
+          <button onclick="${t.disabled ? '' : `selectTool('${t.id}')`}" ${t.disabled ? 'disabled' : ''}
+            class="group flex items-start gap-4 rounded-xl border p-5 text-left transition
+            ${t.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50' : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-md'}">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${t.id === 'market-landscape' ? 'bg-brand-100' : 'bg-neutral-100'}">
+              ${t.id === 'market-landscape' ? chartSvg : lockSvg}
+            </div>
+            <div>
+              <p class="text-base font-semibold text-neutral-900 group-hover:text-brand-600">${t.name}</p>
+              <p class="text-sm text-neutral-500">${t.desc}</p>
+              ${t.disabled ? '<span class="mt-1 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
+            </div>
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function renderTAStep() {
+  return `
+    <div class="space-y-4">
+      <div><h2 class="text-xl font-bold text-neutral-900">Select Therapeutic Area</h2>
+      <p class="text-sm text-neutral-500">Choose the indication to analyze.</p></div>
+      <div class="grid grid-cols-2 gap-3">
+        ${TAS.map(t => `
+          <button onclick="${t.disabled ? '' : `selectTA('${t.id}')`}" ${t.disabled ? 'disabled' : ''}
+            class="rounded-xl border p-4 text-left transition
+            ${t.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+              : state.ta === t.id ? 'border-brand-500 bg-brand-50 shadow-sm'
+              : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm'}">
+            <p class="text-base font-semibold text-neutral-900">${t.name}</p>
+            <p class="text-xs text-neutral-500">${t.count} patients</p>
+            ${t.disabled ? '<span class="mt-1 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function renderDrugStep() {
+  return `
+    <div class="space-y-4">
+      <div><h2 class="text-xl font-bold text-neutral-900">Select Drug(s)</h2>
+      <p class="text-sm text-neutral-500">Choose one or more drugs to analyze within the selected therapeutic area.</p></div>
+      <div class="grid gap-3">
+        ${DRUGS.map(d => {
+          const sel = state.drugs.includes(d.id);
+          return `
+          <button onclick="${d.disabled ? '' : `toggleDrug('${d.id}')`}" ${d.disabled ? 'disabled' : ''}
+            class="flex items-center gap-4 rounded-xl border p-4 text-left transition
+            ${d.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+              : sel ? 'border-brand-500 bg-brand-50 shadow-sm'
+              : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm'}">
+            <div class="flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 ${sel ? 'border-brand-500 bg-brand-500' : 'border-neutral-300'}">
+              ${sel ? checkSvg : ''}
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-base font-semibold text-neutral-900">${d.name}</p>
+              <p class="text-xs text-neutral-500">${d.generic} · ${d.mfr}</p>
+            </div>
+            ${d.disabled ? '<span class="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
+          </button>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+function renderTimeframeStep() {
+  return `
+    <div class="space-y-4">
+      <div><h2 class="text-xl font-bold text-neutral-900">Select Timeframe</h2>
+      <p class="text-sm text-neutral-500">Choose the analysis period.</p></div>
+      <div class="grid gap-3">
+        ${TIMEFRAMES.map(t => `
+          <button onclick="${t.disabled ? '' : `selectTimeframe('${t.id}')`}" ${t.disabled ? 'disabled' : ''}
+            class="flex items-center gap-4 rounded-xl border p-4 text-left transition
+            ${t.disabled ? 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50'
+              : state.timeframe === t.id ? 'border-brand-500 bg-brand-50 shadow-sm'
+              : 'border-neutral-200 bg-white hover:border-brand-400 hover:shadow-sm'}">
+            <span class="${state.timeframe === t.id ? 'text-brand-500' : 'text-neutral-400'}">${calSvg}</span>
+            <div>
+              <p class="text-base font-semibold text-neutral-900">${t.label}</p>
+              <p class="text-xs text-neutral-500">${t.range}</p>
+            </div>
+            ${t.disabled ? '<span class="ml-auto rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">Coming Soon</span>' : ''}
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function renderSummaryStep() {
+  const tool = TOOLS.find(t => t.id === state.tool);
+  const ta = TAS.find(t => t.id === state.ta);
+  const drugs = DRUGS.filter(d => state.drugs.includes(d.id));
+  const tf = TIMEFRAMES.find(t => t.id === state.timeframe);
+  const rows = [
+    { label: 'Analysis', value: tool?.name, icon: chartSvg.replace('h-5 w-5', 'h-4 w-4') },
+    { label: 'Therapeutic Area', value: ta?.name, icon: targetSvg },
+    { label: 'Drug(s)', value: drugs.map(d => d.name).join(', '), icon: searchSvg },
+    { label: 'Timeframe', value: `${tf?.label} (${tf?.range})`, icon: calSmSvg },
+  ];
+  return `
+    <div class="space-y-4">
+      <div><h2 class="text-xl font-bold text-neutral-900">Confirm Your Selections</h2>
+      <p class="text-sm text-neutral-500">Review your analysis parameters before running.</p></div>
+      <div class="rounded-xl border border-neutral-200 bg-white">
+        ${rows.map((r, i) => `
+          <div class="flex items-center gap-3 px-5 py-3.5 ${i < rows.length - 1 ? 'border-b border-neutral-100' : ''}">
+            ${r.icon}
+            <span class="w-36 shrink-0 text-sm text-neutral-500">${r.label}</span>
+            <span class="text-sm font-medium text-neutral-900">${r.value}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="rounded-lg border border-info-200 bg-info-50 p-3">
+        <p class="text-xs text-info-700">The Patient & Market Navigator will query the HealthNexus data warehouse and generate AI-powered insights. This typically takes 1–2 minutes.</p>
+      </div>
+    </div>`;
+}
+
+function renderNav() {
+  const navEl = document.getElementById('step-nav');
+  if (state.step === 'tool') { navEl.style.display = 'none'; return; }
+  navEl.style.display = 'flex';
+
+  const canNext = {
+    ta: !!state.ta,
+    drug: state.drugs.length > 0,
+    timeframe: !!state.timeframe,
+  }[state.step] ?? false;
+
+  const rightBtn = state.step === 'summary'
+    ? `<button onclick="runAnalysis()" class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600">
+         ${aiSvg} Run Analysis
+       </button>`
+    : `<button onclick="goNext()" ${canNext ? '' : 'disabled'}
+         class="inline-flex items-center gap-1.5 rounded-lg px-5 py-2.5 text-sm font-semibold transition
+         ${canNext ? 'bg-brand-500 text-white shadow-sm hover:bg-brand-600' : 'cursor-not-allowed bg-neutral-200 text-neutral-400'}">
+         Next ${arrowRight}
+       </button>`;
+
+  navEl.innerHTML = `
+    <button onclick="goBack()" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 hover:text-neutral-900">
+      ${arrowLeft} Back
+    </button>
+    ${rightBtn}`;
+}
+
+// ======================== ACTIONS ========================
+function selectTool(id) { state.tool = id; state.step = 'ta'; render(); }
+function selectTA(id) { state.ta = id; render(); }
+function toggleDrug(id) {
+  const idx = state.drugs.indexOf(id);
+  if (idx >= 0) state.drugs.splice(idx, 1); else state.drugs.push(id);
+  render();
+}
+function selectTimeframe(id) { state.timeframe = id; render(); }
+
+function goBack() {
+  const order = ['tool', 'ta', 'drug', 'timeframe', 'summary'];
+  const idx = order.indexOf(state.step);
+  if (idx > 0) { state.step = order[idx - 1]; render(); }
+}
+function goNext() {
+  const order = ['tool', 'ta', 'drug', 'timeframe', 'summary'];
+  const idx = order.indexOf(state.step);
+  if (idx < order.length - 1) { state.step = order[idx + 1]; render(); }
+}
+function runAnalysis() { state.step = 'processing'; render(); }
+
+// ======================== PROCESSING ========================
+function startProcessing() {
+  const stepsEl = document.getElementById('processing-steps');
+  const barEl = document.getElementById('progress-bar');
+  const pctEl = document.getElementById('progress-pct');
+
+  stepsEl.innerHTML = PROC_STEPS.map((s, i) => `
+    <div class="flex items-center gap-3" id="proc-step-${i}">
+      <div class="flex h-5 w-5 shrink-0 items-center justify-center">
+        <div class="h-2 w-2 rounded-full bg-neutral-300" id="proc-dot-${i}"></div>
+      </div>
+      <span class="text-sm text-neutral-400" id="proc-label-${i}">${s.label}</span>
+    </div>
+  `).join('');
+
+  const totalDur = PROC_STEPS.reduce((s, p) => s + p.dur, 0);
+  let elapsed = 0;
+
+  PROC_STEPS.forEach((s, i) => {
+    setTimeout(() => {
+      document.getElementById(`proc-dot-${i}`).outerHTML = `<div class="h-3 w-3 rounded-full bg-brand-500 animate-pulse-dot"></div>`;
+      document.getElementById(`proc-label-${i}`).className = 'text-sm text-neutral-800';
+      if (i > 0) {
+        document.getElementById(`proc-dot-${i-1}`)?.closest('.flex.h-5')?.remove();
+        const prev = document.getElementById(`proc-step-${i-1}`);
+        if (prev) prev.querySelector('.flex.h-5, div:first-child').outerHTML = `<div class="flex h-5 w-5 shrink-0 items-center justify-center">${checkCircle}</div>`;
+      }
+    }, elapsed);
+    elapsed += s.dur;
+  });
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += 100 / (totalDur / 80);
+    if (progress > 98) progress = 98;
+    barEl.style.width = progress + '%';
+    pctEl.textContent = Math.round(progress) + '%';
+  }, 80);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    barEl.style.width = '100%';
+    pctEl.textContent = '100%';
+    setTimeout(() => { state.step = 'results'; render(); }, 600);
+  }, totalDur);
+}
+
+// ======================== RESULTS HELPERS ========================
+function toggleTables() {
+  const content = document.getElementById('tables-content');
+  const chevron = document.getElementById('chevron');
+  content.classList.toggle('hidden');
+  chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
+}
+
+// ======================== INIT ========================
+render();
+</script>
 </body>
 </html>

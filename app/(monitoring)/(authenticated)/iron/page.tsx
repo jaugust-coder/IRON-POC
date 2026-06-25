@@ -1,5 +1,5 @@
-import IronQ1Page from '@modules/iron/components/iron-q1-page';
+import IronWizard from '@modules/iron/components/iron-wizard';
 
 export default function IronPage() {
-  return <IronQ1Page />;
+  return <IronWizard />;
 }
