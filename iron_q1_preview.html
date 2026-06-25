@@ -500,7 +500,7 @@ function renderSummaryStep() {
       + '<span class="text-sm font-medium text-neutral-900">' + r.value + '</span></div>';
   });
   html += '</div><div class="rounded-lg border border-info-200 bg-info-50 p-3"><p class="text-xs text-info-700">The Patient &amp; Market Navigator will query the HealthNexus data warehouse and generate AI-powered insights. This typically takes 1–2 minutes.</p></div>'
-    + '<button onclick="runAnalysis()" class="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-brand-600 hover:shadow-lg">'
+    + '<button onclick="runAnalysis()" style="margin-top:12px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:#7c3aed;padding:14px 24px;font-size:16px;font-weight:600;color:#fff;border:none;cursor:pointer;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);" onmouseover="this.style.background=\'#6d28d9\'" onmouseout="this.style.background=\'#7c3aed\'">'
     + aiSvg + ' Run Analysis</button></div>';
   return html;
 }
