@@ -510,8 +510,9 @@ function renderNav() {
 function selectTool(id) { state.tool = id; state.step = 'ta'; render(); }
 function selectTA(id) { state.ta = id; state.step = 'drug'; render(); }
 function toggleDrug(id) {
-  const idx = state.drugs.indexOf(id);
-  if (idx >= 0) state.drugs.splice(idx, 1); else state.drugs.push(id);
+  var idx = state.drugs.indexOf(id);
+  if (idx >= 0) { state.drugs.splice(idx, 1); } else { state.drugs.push(id); }
+  state.step = 'timeframe';
   render();
 }
 function selectTimeframe(id) { state.timeframe = id; state.step = 'summary'; render(); }

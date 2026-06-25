@@ -460,12 +460,13 @@ export default function IronWizard() {
         {step === 'drug' && (
           <DrugSelectionStep
             selected={selections.drugs}
-            onToggle={(id) =>
+            onToggle={(id) => {
               setSelections((s) => ({
                 ...s,
                 drugs: s.drugs.includes(id) ? s.drugs.filter((d) => d !== id) : [...s.drugs, id],
-              }))
-            }
+              }));
+              goNext();
+            }}
           />
         )}
         {step === 'timeframe' && (
