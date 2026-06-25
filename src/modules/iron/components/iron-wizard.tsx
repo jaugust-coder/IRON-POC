@@ -451,7 +451,10 @@ export default function IronWizard() {
         {step === 'ta' && (
           <TASelectionStep
             selected={selections.ta}
-            onSelect={(id) => setSelections((s) => ({ ...s, ta: id }))}
+            onSelect={(id) => {
+              setSelections((s) => ({ ...s, ta: id }));
+              goNext();
+            }}
           />
         )}
         {step === 'drug' && (
@@ -468,7 +471,10 @@ export default function IronWizard() {
         {step === 'timeframe' && (
           <TimeframeStep
             selected={selections.timeframe}
-            onSelect={(id) => setSelections((s) => ({ ...s, timeframe: id }))}
+            onSelect={(id) => {
+              setSelections((s) => ({ ...s, timeframe: id }));
+              goNext();
+            }}
           />
         )}
         {step === 'summary' && <SummaryStep selections={selections} />}

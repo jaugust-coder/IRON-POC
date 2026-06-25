@@ -481,42 +481,40 @@ function renderSummaryStep() {
 }
 
 function renderNav() {
-  const navEl = document.getElementById('step-nav');
+  var navEl = document.getElementById('step-nav');
   if (state.step === 'tool') { navEl.style.display = 'none'; return; }
   navEl.style.display = 'flex';
 
-  const canNext = {
-    ta: !!state.ta,
-    drug: state.drugs.length > 0,
-    timeframe: !!state.timeframe,
-  }[state.step] ?? false;
+  var canNext = false;
+  if (state.step === 'ta') canNext = !!state.ta;
+  else if (state.step === 'drug') canNext = state.drugs.length > 0;
+  else if (state.step === 'timeframe') canNext = !!state.timeframe;
 
-  const rightBtn = state.step === 'summary'
-    ? `<button onclick="runAnalysis()" class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600">
-         ${aiSvg} Run Analysis
-       </button>`
-    : `<button onclick="goNext()" ${canNext ? '' : 'disabled'}
-         class="inline-flex items-center gap-1.5 rounded-lg px-5 py-2.5 text-sm font-semibold transition
-         ${canNext ? 'bg-brand-500 text-white shadow-sm hover:bg-brand-600' : 'cursor-not-allowed bg-neutral-200 text-neutral-400'}">
-         Next ${arrowRight}
-       </button>`;
+  var rightBtn = '';
+  if (state.step === 'summary') {
+    rightBtn = '<button onclick="runAnalysis()" class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600">'
+      + aiSvg + ' Run Analysis</button>';
+  } else {
+    var btnCls = canNext
+      ? 'bg-brand-500 text-white shadow-sm hover:bg-brand-600'
+      : 'cursor-not-allowed bg-neutral-200 text-neutral-400';
+    var dis = canNext ? '' : 'disabled';
+    rightBtn = '<button onclick="goNext()" ' + dis + ' class="inline-flex items-center gap-1.5 rounded-lg px-5 py-2.5 text-sm font-semibold transition ' + btnCls + '">Next ' + arrowRight + '</button>';
+  }
 
-  navEl.innerHTML = `
-    <button onclick="goBack()" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 hover:text-neutral-900">
-      ${arrowLeft} Back
-    </button>
-    ${rightBtn}`;
+  navEl.innerHTML = '<button onclick="goBack()" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 hover:text-neutral-900">'
+    + arrowLeft + ' Back</button>' + rightBtn;
 }
 
 // ======================== ACTIONS ========================
 function selectTool(id) { state.tool = id; state.step = 'ta'; render(); }
-function selectTA(id) { state.ta = id; render(); }
+function selectTA(id) { state.ta = id; state.step = 'drug'; render(); }
 function toggleDrug(id) {
   const idx = state.drugs.indexOf(id);
   if (idx >= 0) state.drugs.splice(idx, 1); else state.drugs.push(id);
   render();
 }
-function selectTimeframe(id) { state.timeframe = id; render(); }
+function selectTimeframe(id) { state.timeframe = id; state.step = 'summary'; render(); }
 
 function goBack() {
   const order = ['tool', 'ta', 'drug', 'timeframe', 'summary'];
